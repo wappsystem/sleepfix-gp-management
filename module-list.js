@@ -17,10 +17,12 @@
         "oq-panel":         {url:"$H/m/oq-panel.html"},
         "participant-form": {url:"$H/m/participant-form.html", Table:"sleepfix-gp-participant"},
         
-        "login-data":       {url:"$H/m/tasks/login-data.html",   Table:"sleepfix-gp-login", form_module:"login-form",task_name:"login"},
+        "login-data":       {url:"$H/m/tasks/login-data.html",   Table:"sleepfix-gp-login", form_module:"login-form",task_name:"Login"},
         "login-form":       {url:"$H/m/tasks/login-form.html",   Table:"sleepfix-gp-login"},
-        "t1-data":          {url:"$H/m/tasks/t1-data.html",   Table:"sleepfix-gp-t1", form_module:"t1-form",task_name:"t1"},
-        "t1-form":          {url:"$H/m/tasks/t1-form.html",   Table:"sleepfix-gp-t1",task_name:"q-t1"},
+        "screening-data":   {url:"$H/m/tasks/screening-data.html",   Table:"sleepfix-gp-screening", form_module:"screening-form",task_name:"Screening Questions"},
+        "screening-form":   {url:"$H/m/tasks/screening-form.html",   Table:"sleepfix-gp-screening",task_name:"Screening Questions"},
+        "t2-data":          {url:"$H/m/tasks/t2-data.html",   Table:"sleepfix-gp-t2", form_module:"t2-form",task_name:"t2"},
+        "t2-form":          {url:"$H/m/tasks/t2-form.html",   Table:"sleepfix-gp-t2",task_name:"q-t2"},
     }
     //-------------------------------------------------------------------------------------
     for(p in modules){
