@@ -105,32 +105,32 @@
                         var p_uid=username.split('-')[0];
                         var qry={I2:p_uid};
                         $vm.request({cmd:"find-s",table:tb,query:qry,options:{}},function(res){
-                            if(res.result.length==0){
-                                task='screening-form';
-                            }
+                            if(res.result.length==0) task='screening-form';
+                            else if (parseInt(res.result[0].Data.phq_9) > 0) task='screen-failure-phq-9';
+                            else if (res.result[0].Data.Eligible != "Yes") task='screen-failure-thank-you-page';
                         })
                         if(task==""){
                             tb=$vm.module_list['pis-form'].Table;
                             $vm.request({cmd:"find-s",table:tb,query:qry,options:{}},function(res){
-                                if(res.result.length==0){
-                                    task='pis-form';
-                                }
+                                if(res.result.length==0) task='pis-form';
                             })
                         }
                         if(task==""){
                             tb=$vm.module_list['consent-form'].Table;
                             $vm.request({cmd:"find-s",table:tb,query:qry,options:{}},function(res){
-                                if(res.result.length==0){
-                                    task='consent-form';
-                                }
+                                if(res.result.length==0) task='consent-form';
                             })
                         }
                         if(task==""){
                             tb=$vm.module_list['contact-form'].Table;
                             $vm.request({cmd:"find-s",table:tb,query:qry,options:{}},function(res){
-                                if(res.result.length==0){
-                                    task='contact-form';
-                                }
+                                if(res.result.length==0) task='contact-form';
+                            })
+                        }
+                        if(task==""){
+                            tb=$vm.module_list['isi-form'].Table;
+                            $vm.request({cmd:"find-s",table:tb,query:qry,options:{}},function(res){
+                                if(res.result.length==0) task='isi-form';
                             })
                         }
                         jQuery.ajaxSetup({async:true});
@@ -138,6 +138,7 @@
                             p_uid=username.split('-')[0];
                             $vm.load_module_v2(m.prefix + task, '', {p_uid:p_uid});
                         }
+                        else  $vm.load_module_v2(m.prefix + 'access-code-form', '', {p_uid:p_uid});
                     }
                     else{
                         $('#ErrMsg__ID').text("Invalid username or password.")

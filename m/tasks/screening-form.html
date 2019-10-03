@@ -42,7 +42,7 @@
                                         <span class="checkmark"></span> No</label>
                                 </fieldset>
                             </div>
-<!--                            <div class="form-group">
+                            <div class="form-group">
                                 <fieldset class="subquestions">
                                     <h4>2. Are you aged between 18-65?</h4>
                                     <label class="radiobuttons">
@@ -167,7 +167,7 @@
                                             <span class="checkmark"></span> Nearly every day</label><br>
                                     </fieldset>
                                 </div>
-                            </div>-->
+                            </div>
                             <div class="form-group">
                                 <p class="note">*If unsure, please contact the research team. <br>
                                     SleepFix Research Team<br>
@@ -199,63 +199,23 @@
             //-------------------------------------
             var before_submit=m.before_submit;
                 m.before_submit=function(data,index){
-                //if ((data.australia != 'Yes' || data.between_18_65 != 'Yes' || data.english != 'Yes' || data.smartphone != 'Yes' || data.baby != 'No' || data.shift != 'No' || data.disease != 'No' || data.mental_health != 'No' || data.time_difference_2h != 'No' || data.time_difference_1h != 'No')
-                //    ||
-                //    (parseInt(data.phq_9) > 0)) { data.Eligible = "No" }
-                //else { data.Eligible = "Yes" };
+                if ((data.australia != 'Yes' || data.between_18_65 != 'Yes' || data.english != 'Yes' || data.smartphone != 'Yes' || data.baby != 'No' || data.shift != 'No' || data.disease != 'No' || data.mental_health != 'No' || data.time_difference_2h != 'No' || data.time_difference_1h != 'No')
+                    ||
+                    (parseInt(data.phq_9) > 0)) { data.Eligible = "No" }
+                else { data.Eligible = "Yes" };
                 return before_submit(data,index);
             }
             //-------------------------------------
-//            m.before_submit = function (data, index) {
-                //if ((data.australia != 'Yes' || data.between_18_65 != 'Yes' || data.english != 'Yes' || data.smartphone != 'Yes' || data.baby != 'No' || data.shift != 'No' || data.disease != 'No' || data.mental_health != 'No' || data.time_difference_2h != 'No' || data.time_difference_1h != 'No')
-                //    ||
-                //    (parseInt(data.phq_9) > 0)) { data.Eligible = "No" }
-                //else { data.Eligible = "Yes" };
-//            }
-            //-------------------------------------
             m.after_insert = function (data, res) {
- /*               var table=$vm.module_list['participant-data'].Table;
-                var query={UID:parseInt(data.Participant_uid)}
-                var datap="";
-                var nrid;
-                $vm.request({cmd:'find',table:table,query:query},function(res){
-                    console.log(JSON.stringify(res.result[0].Data.List))
-                    if(res.status=="np"){
-                        alert("No permission to insert a new record in to the database.");
-                        if(m.input!=undefined && m.input.goback!=undefined){
-                            $vm.refresh=1;
-                            window.history.go(-1);       //from grid
-                        }
-                        return;
-                    }
-                    datap=res.result[0].Data;
-                    nrid=res.result[0]._id;
-                    if(datap!='' && nrid!=undefined){
-                        $vm.request({cmd:'update',id:nrid,table:table,data:datap},function(res){
-                            if(res.status=="np"){
-                                alert("No permission to insert a new record in to the database.");
-                                if(m.input!=undefined && m.input.goback!=undefined){
-                                    $vm.refresh=1;
-                                    window.history.go(-1);       //from grid
-                                }
-                                return;
-                            }
-                        });
-                    }
-                });
-
                 if (parseInt(data.phq_9) > 0) {
-
                     $vm.load_module_v2(m.prefix + 'screen-failure-phq-9', '', {});
                 }
                 else if (data.australia != 'Yes' || data.between_18_65 != 'Yes' || data.english != 'Yes' || data.smartphone != 'Yes' || data.baby != 'No' || data.shift != 'No' || data.disease != 'No' || data.mental_health != 'No' || data.time_difference_2h != 'No' || data.time_difference_1h != 'No'){
                     $vm.load_module_v2(m.prefix + 'screen-failure-thank-you-page', '', {});
                 }
                 else {
-                    $vm.load_module_v2(m.prefix + 'pis-form', '', { first_uid: res.uid });
+                    $vm.load_module_v2(m.prefix + 'pis-form', '', {p_uid:m.input.p_uid});
                 }
-                */
-                $vm.load_module_v2(m.prefix + 'pis-form', '', {p_uid:m.input.p_uid});
             }
             //--------------------------------------------------------
             $('#D__ID').css('min-height', $vm.min_height);

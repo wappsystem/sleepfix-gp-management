@@ -75,7 +75,7 @@
                                                 <input class="form-control" type="text" name="postcode" required >
                                             </label><br>
                                             <label><span class="">State</span>
-                                                <select name="State" class="form-control" required >
+                                                <select name="state" class="form-control" required >
                                                         <option value="NSW">NSW</option>
                                                         <option value="NT">NT</option>
                                                         <option value="SA">SA</option>
@@ -113,7 +113,7 @@
             }
             //-------------------------------------
             m.after_insert = function (data, res) {
-                $vm.load_module_v2(m.prefix + 'isi-form', '', {});
+                $vm.load_module_v2(m.prefix + 'isi-form', '', {p_uid:m.input.p_uid});
             }
             //--------------------------------------------------------
             $('#D__ID').css('min-height', $vm.min_height);

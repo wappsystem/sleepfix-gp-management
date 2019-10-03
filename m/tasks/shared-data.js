@@ -11,7 +11,7 @@ m.set_req=function(){
 };
 //-------------------------------------
 m.load=function(){
-        if(m.input!=undefined && m.input.record!=undefined){
+    if(m.input!=undefined && m.input.record!=undefined){
         $('#export_section__ID').hide();
     }
     else{

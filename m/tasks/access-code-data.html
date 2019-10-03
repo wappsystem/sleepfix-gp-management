@@ -6,10 +6,11 @@
         function F__ID(){
             //-------------------------------------
             VmInclude:__COMPONENT__/g/grid.01.js
-            VmInclude:__CURRENT_PATH__/shared-data.js
             //-------------------------------------
-            var fields="Q1";
-            m.fields="_Form,_Lock,_Status,_Notes,_Participant_ID,"+fields+",Submit_date,Submitted_by,_Delete";
+            //$('#new__ID').hide();
+            //-------------------------------------
+            var fields="Sequence Number|UID,Access_Code";
+            m.fields="_Form,"+fields+",Submit_date,Submitted_by";
             //-------------------------------------
         }
     </script>
