@@ -21,8 +21,14 @@
         "login-form":       {url:"$H/m/tasks/login-form.html",   Table:"sleepfix-gp-login"},
         "screening-data":   {url:"$H/m/tasks/screening-data.html",   Table:"sleepfix-gp-screening", form_module:"screening-form",task_name:"Screening Questions"},
         "screening-form":   {url:"$H/m/tasks/screening-form.html",   Table:"sleepfix-gp-screening",task_name:"Screening Questions"},
-        "t2-data":          {url:"$H/m/tasks/t2-data.html",   Table:"sleepfix-gp-t2", form_module:"t2-form",task_name:"t2"},
-        "t2-form":          {url:"$H/m/tasks/t2-form.html",   Table:"sleepfix-gp-t2",task_name:"q-t2"},
+        "pis-data":   {url:"$H/m/tasks/pis-data.html",   Table:"sleepfix-gp-pis", form_module:"pis-form",task_name:"Pis"},
+        "pis-form":          {url:"$H/m/tasks/pis-form.html",Table:"sleepfix-gp-pis",task_name:"pis"},
+        "consent-data":   {url:"$H/m/tasks/consent-data.html",   Table:"sleepfix-gp-consent", form_module:"consent-form",task_name:"consent"},
+        "consent-form":   {url:"$H/m/tasks/consent-form.html",   Table:"sleepfix-gp-consent",task_name:"consent"},
+        "contact-data":   {url:"$H/m/tasks/contact-data.html",   Table:"sleepfix-gp-contact", form_module:"contact-form",task_name:"contact"},
+        "contact-form":   {url:"$H/m/tasks/contact-form.html",   Table:"sleepfix-gp-contact",task_name:"contact"},
+        "screen-failure-phq-9":          {url:"$H/m/tasks/screen-failure-phq-9.html",task_name:"Screening Failure PHQ-9"},
+        "screen-failure-thank-you-page": {url:"$H/m/tasks/screen-failure-thank-you-page.html",task_name:"pis"},
     }
     //-------------------------------------------------------------------------------------
     for(p in modules){
