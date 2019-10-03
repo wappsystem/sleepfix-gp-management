@@ -91,6 +91,18 @@
                                 <div style="text-align:right">
                                     <button type="submit" id="submit__ID" class="btn btn-primary btn-lg">Next</button>
                                 </div>
+                                <div class="form-group" style="display:none">
+                                    <div class="questiongroup ">
+                                        <fieldset class="subquestions">
+                                            <label><span class="">Sequence Number</span>
+                                                <input class="form-control" type="text" name="sequence_no" >
+                                            </label><br>
+                                            <label><span class="">Access Code</span>
+                                                <input class="form-control" type="text" name="access_code" >
+                                            </label><br>
+                                        </fieldset>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -110,15 +122,44 @@
                 $('#D__ID').scrollTop(0);
                 $(window).scrollTop(0);
                 m.input.goback = 1;
-            }
-            //-------------------------------------
-            m.after_insert = function (data, res) {
-                $vm.load_module_v2(m.prefix + 'isi-form', '', {p_uid:m.input.p_uid});
+				var I1 = $('#F__ID input[name=sequence_no').val();
+				if (I1 == '') {
+					$vm.request({ cmd: "find", table: m.Table, sort: { I1: -1 }, skip: 0, limit: 1 }, function (res) {
+						if (res.sys.permission == false) {
+							$vm.alert("No permission. Private database table, ask the table's owner for permissions.");
+							return;
+						}
+						var max_I1 = 0;
+						if (res.result.length > 0) {
+							if (res.result[0].I1 !== undefined) max_I1 = res.result[0].I1
+						}
+						max_I1++;
+                        $('#F__ID input[name=sequence_no').val(max_I1);
+                        var tb=$vm.module_list['access-code-data'].Table;
+                        var qry={UID:max_I1}
+                        $vm.request({ cmd: "find", table:tb, query:qry, skip: 0, limit: 1 }, function (res) {
+                            if(res.result.length>0) $('#F__ID input[name=access_code').val(res.result[0].Data.Access_Code);
+                            else $vm.alert("We are so sorry we have run out of Access codes")
+                        })
+                        
+					})
+				}
             }
             //--------------------------------------------------------
             $('#D__ID').css('min-height', $vm.min_height);
             //--------------------------------------------------------
             $(this).scrollTop(0);
+            //-------------------------------------
+			var before_submit = m.before_submit;
+			m.before_submit = function (data, index) {
+                var I1 = $('#F__ID input[name=sequence_no').val(); if (I1 != '' && I1 != '-') index.I1 = parseInt(I1);
+				return before_submit(data, index);
+			}
+            //-------------------------------------
+            m.after_insert = function (data, res) {
+                $vm.load_module_v2(m.prefix + 'isi-form', '', {p_uid:m.input.p_uid});
+            }
+			//-------------------------------------
         }
     </script>
     <style>

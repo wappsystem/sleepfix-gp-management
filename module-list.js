@@ -31,10 +31,12 @@
         "contact-form":   {url:"$H/m/tasks/contact-form.html",   Table:"sleepfix-gp-contact",task_name:"contact"},
         "screen-failure-phq-9":          {url:"$H/m/tasks/screen-failure-phq-9.html",task_name:"Screening Failure PHQ-9"},
         "screen-failure-thank-you-page": {url:"$H/m/tasks/screen-failure-thank-you-page.html",task_name:"pis"},
+        "success-page":          {url:"$H/m/tasks/success-page.html",Table:"sleepfix-gp-contact",task_name:"Success Page"},
         "isi-data":   {url:"$H/m/tasks/isi-data.html",   Table:"sleepfix-gp-isi", form_module:"isi-form",task_name:"isi"},
         "isi-form":   {url:"$H/m/tasks/isi-form.html",   Table:"sleepfix-gp-isi",task_name:"isi"},
         "sleep-difficulty-score-data":   {url:"$H/m/tasks/sleep-difficulty-score-data.html",   Table:"sleepfix-gp-sleep-difficulty-score", form_module:"sleep-difficulty-score-form",task_name:"sleep-difficulty-score"},
         "sleep-difficulty-score-form":   {url:"$H/m/tasks/sleep-difficulty-score-form.html",   Table:"sleepfix-gp-sleep-difficulty-score",task_name:"sleep-difficulty-score"},
+        "sleepfix-study-page": {url:"$H/m/tasks/sleepfix-study-page1.html"},
     }
     //-------------------------------------------------------------------------------------
     for(p in modules){
