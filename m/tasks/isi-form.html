@@ -203,7 +203,7 @@
 			}
 			//-------------------------------------
 			m.after_insert = function (data, res) {
-				$vm.alert("Generate randomisation number and send to participant")
+				$vm.load_module_v2(m.prefix + "success-page", '', {p_uid:m.input.p_uid})
 				//$vm.load_module_v2(m.prefix + "sleep-difficulty-score-form", '', {p_uid:m.input.p_uid})
 			}
 			//-------------------------------------

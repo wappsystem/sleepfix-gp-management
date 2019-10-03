@@ -88,6 +88,7 @@
                         //x.className="";
                         //--------------------
                         //create a log record, for a special project
+                        jQuery.ajaxSetup({async:false});
                         var tb=$vm.module_list["login-data"].Table;
                         $vm.request({cmd:"find-s",table:tb,options:{}},function(res){
                             if(res.result.length==0){
@@ -99,7 +100,6 @@
                         });
                         //--------------------
                         //$vm.load_module(m.questionnaire_panel,'',{record:res.result});
-                        jQuery.ajaxSetup({async:false});
                         var task="";
                         var tb=$vm.module_list['screening-data'].Table;
                         var p_uid=username.split('-')[0];
