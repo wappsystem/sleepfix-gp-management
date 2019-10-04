@@ -33,7 +33,7 @@ var I=0; var loop_1=setInterval(function (){
 var load=m.load;
 m.load=function(){
     load();
-    if($vm.online_questionnaire==1) {
+    if($vm.online_questionnaire==1 || $vm.online_questionnaire_w6==1) {
         $('#pdf__ID').hide();
         $('#participant_div__ID').hide();
     }
