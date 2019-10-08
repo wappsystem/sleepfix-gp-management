@@ -110,7 +110,8 @@
                             if (res.result.length == 0) {
                                 var p_uid = username.split('-')[0];
                                 var data = { Participant: p_uid, Participant_uid: p_uid, sysStatus: "#00FF00" }
-                                $vm.request({ cmd: 'insert', table: tb, data: data }, function (res) {
+                                var index={I2:p_uid}
+                                $vm.request({ cmd: 'insert', table: tb, data: data, index:index }, function (res) {
                                 });
                             }
                         });
@@ -122,7 +123,6 @@
                         var qry = { I2: p_uid };
                         $vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
                             if (res.result.length == 0) task = 'screening-form';
-                            else if (parseInt(res.result[0].Data.phq_9) > 0) task = 'screen-failure-phq-9';
                             else if (res.result[0].Data.Eligible != "Yes") task = 'screen-failure-thank-you-page';
                         })
                         if (task == "") {

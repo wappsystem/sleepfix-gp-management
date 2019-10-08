@@ -1,9 +1,9 @@
 (function(){
     //-------------------------------------------------------------------------------------
     var modules={
-        "panel-main":       {url:"$H/m/panel-main.html"},
+        "panel-main":       {url:"$H/m/panel-main.html",router:1},
         "panel-child":      {url:"$H/m/panel-child.html"},
-        "notes-data":  	    {url:"$H/m/notes-data.html",Table:"sleepfix-gp-notes",form_module:"notes-form",router:1},
+        "notes-data":  	    {url:"$H/m/notes-data.html",Table:"sleepfix-gp-notes",form_module:"notes-form"},
         "notes-form":  	    {url:"$H/m/notes-form.html",Table:"sleepfix-gp-notes"},
         
         "participant-data": {url:"$H/m/participant-data.html", Table:"sleepfix-gp-participant", form_module:"participant-form",router:1,
@@ -44,6 +44,7 @@
         "sleepfix-study-page": {url:"$H/m/tasks/sleepfix-study-page1.html"},
         "isi-w6-data":   {url:"$H/m/tasks/isi-data.html",   Table:"sleepfix-gp-isi-w6", form_module:"isi-form",task_name:"isi"},
         "isi-w6-form":   {url:"$H/m/tasks/isi-form.html",   Table:"sleepfix-gp-isi-w6",task_name:"isi"},
+        "progress-report":{url:"$H/m/tasks/progress-data.html",   Table:"sleepfix-gp-login",task_name:"Progress report"},
     }
     //-------------------------------------------------------------------------------------
     for(p in modules){

@@ -1,0 +1,62 @@
+<div id=D__ID>
+    <section>
+        VmInclude:__COMPONENT__/g/grid.01.html
+    </section>
+    <script>
+        function F__ID(){
+            //-------------------------------------
+            VmInclude:__COMPONENT__/g/grid.01.js
+            //-------------------------------------
+            $('#new__ID').hide();
+            //-------------------------------------
+            var fields="Eligible,PIS|pis,Consent,Sequence Number|sequence_no,Access_Code|access_code,First Name|first_name,Last Name|last_name,Mobile|phone,email,ISI";
+            m.fields="Participant_ID|Participant_uid,"+fields+"";
+            //-------------------------------------
+			m.data_process = function () {
+                jQuery.ajaxSetup({ async: false });
+                //--------------------
+                var all_data=['screening-data','pis-data','consent-form','contact-form','isi-form']
+                //-------------------------------------
+                var limit=m.records.length;
+                m.sort={I2:-1}
+                for (var i=0;i<all_data.length;i++){
+                    var tb = $vm.module_list[all_data[i]].Table;
+                    $vm.request({ cmd: "find", table: tb, sort:m.sort, options: {}, limit:limit }, function (res) {
+                        if(res.status=='np' || res.result==undefined){
+                            res.result=[];
+                        }
+                        if(res.status=='np'){
+                            if(res.sys.tb=='on') $vm.alert("No permission. Private database table, ask the table's owner for permissions.");
+                            else $vm.alert("No permission.");
+                        }
+
+                        if (res.result.length > 0) {
+                            var flds=fields.split(',');
+                            for (var j=0;j<flds.length;j++){
+                                var tmp=flds[j].split('|')
+                                if (tmp.length>1) flds[j]=tmp[1];
+                            }
+                            for (var ii=0;ii<res.result.length;ii++){
+                                for (var j=0;j<m.records.length;j++){
+                                    if (m.records[j]['I2']==res.result[ii]['I2'])
+                                    {
+                                        for(var k=0;k<flds.length;k++){
+                                            if(res.result[ii].Data[flds[k]]!=undefined) {m.records[j].Data[flds[k]]=res.result[ii].Data[flds[k]];}    
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    })
+                }
+                jQuery.ajaxSetup({ async: true });
+                //console.log(JSON.stringify(m.records))
+                m.render();
+            };
+        }
+	//-------------------------------------
+    </script>
+    <style>
+        VmInclude:__COMPONENT__/g/grid.01.css
+    </style>
+</div>
