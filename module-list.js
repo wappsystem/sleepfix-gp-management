@@ -43,7 +43,7 @@
         "sleep-difficulty-score-form":   {url:"$H/m/tasks/sleep-difficulty-score-form.html",   Table:"sleepfix-gp-sleep-difficulty-score",task_name:"sleep-difficulty-score"},
         "sleepfix-study-page": {url:"$H/m/tasks/sleepfix-study-page1.html"},
         "isi-w6-data":   {url:"$H/m/tasks/isi-data.html",   Table:"sleepfix-gp-isi-w6", form_module:"isi-form",task_name:"isi"},
-        "isi-w6-form":   {url:"$H/m/tasks/isi-form.html",   Table:"sleepfix-gp-isi-w6",task_name:"isi"},
+        "isi-w6-form":   {url:"$H/m/tasks/isi-w6-form.html",   Table:"sleepfix-gp-isi-w6",task_name:"isi"},
         "progress-report":{url:"$H/m/tasks/progress-data.html",   Table:"sleepfix-gp-login",task_name:"Progress report"},
     }
     //-------------------------------------------------------------------------------------
