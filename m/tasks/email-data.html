@@ -1,0 +1,66 @@
+<div id=D__ID>
+    <div>
+      VmInclude:__COMPONENT__/g/grid.01.html
+    </div>
+    <script>
+        function F__ID(){
+            //-------------------------------------
+            VmInclude:__COMPONENT__/g/grid.01.js
+            VmInclude:__CURRENT_PATH__/shared-data.js
+                //-------------------------------------
+            var fields="Participant ID|I2,First Name|first_name,Last Name|last_name,Email|email,Access Code|access_code,Start_Date|Submit_date,Email_Week_6,Reminder_1,Reminder_2";
+            m.fields=""+fields+"";
+            //-------------------------------------
+            $('#new__ID').hide();
+            $('#import__ID').hide();          
+            //-------------------------------------
+            m.cell_render=function(records,I,field,td){
+                switch(field){
+                    case 'Email_Week_6':
+                        var s=records[I]["Submit_date"]
+                        if(s!='' && s!=null && s!=undefined){
+                            s=s.substring(0,10);
+                            var dt1=$vm.date_yyyymmdd_parse(s);
+                            var dt2=$vm.date_add_days(dt1,42);
+                            html="<u style='cursor:pointer'>"+$vm.yyyymmdd_to_ddmmyyyy($vm.date_to_string_yyyymmdd(dt2))+"</u>";
+                        }
+                        td.html(html);
+                        td.find('u').on('click',function(){
+                            $vm.load_module_v2('email-01','',{record:records[I]})
+                        })
+                    break;
+                    case 'Reminder_1':
+                        var s=records[I]["Submit_date"]
+                        if(s!='' && s!=null && s!=undefined){
+                            s=s.substring(0,10);
+                            var dt1=$vm.date_yyyymmdd_parse(s);
+                            var dt2=$vm.date_add_days(dt1,44);
+                            html="<u style='cursor:pointer'>"+$vm.yyyymmdd_to_ddmmyyyy($vm.date_to_string_yyyymmdd(dt2))+"</u>";
+                        }
+                        td.html(html);
+                        td.find('u').on('click',function(){
+                            $vm.load_module_v2('email-r1','',{record:records[I]})
+                        })
+                    break;
+                    case 'Reminder_2':
+                        var s=records[I]["Submit_date"]
+                        if(s!='' && s!=null && s!=undefined){
+                            s=s.substring(0,10);
+                            var dt1=$vm.date_yyyymmdd_parse(s);
+                            var dt2=$vm.date_add_days(dt1,46);
+                            html="<u style='cursor:pointer'>"+$vm.yyyymmdd_to_ddmmyyyy($vm.date_to_string_yyyymmdd(dt2))+"</u>";
+                        }
+                        td.html(html);
+                        td.find('u').on('click',function(){
+                            $vm.load_module_v2('email-r2','',{record:records[I]})
+                        })
+                    break;
+                }
+            }
+            //-----------------------------------------------
+        }
+    </script>
+    <style>
+        VmInclude:__COMPONENT__/g/grid.01.css
+    </style>
+</div>

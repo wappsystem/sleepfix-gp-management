@@ -45,6 +45,10 @@
         "isi-w6-data":   {url:"$H/m/tasks/isi-data.html",   Table:"sleepfix-gp-isi-w6", form_module:"isi-form",task_name:"isi"},
         "isi-w6-form":   {url:"$H/m/tasks/isi-w6-form.html",   Table:"sleepfix-gp-isi-w6",task_name:"isi"},
         "progress-report":{url:"$H/m/tasks/progress-data.html",   Table:"sleepfix-gp-login",task_name:"Progress report"},
+        "email-data":   {url:"$H/m/tasks/email-data.html",   Table:"sleepfix-gp-contact", form_module:"email-form",task_name:"email"},
+        "email-01":   {url:"$H/m/tasks/email-01.html"},
+        "email-r1":   {url:"$H/m/tasks/email-r1.html"},
+        "email-r2":   {url:"$H/m/tasks/email-r2.html"},
     }
     //-------------------------------------------------------------------------------------
     for(p in modules){
