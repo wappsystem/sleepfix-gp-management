@@ -39,7 +39,7 @@
                                             <label><span class="">Phone number</span>
                                                 <input type="tel" class="form-control" name="phone"
                                                     id="mobileNumber__ID" required placeholder="XXXX-XXX-XXX"
-                                                    pattern="[0-9]{4}-[0-9]{3}-[0-9]{3}">
+                                                    >
                                             </label><br>
                                             <label class="checkboxes">
                                                 <input type="checkbox" name="sms" checked>
@@ -149,6 +149,27 @@
 					})
 				}
             }
+            //--------------------------------------------------------
+            $('#mobileNumber__ID').keyup(function(e){
+                var ph = this.value.replace(/\D/g,'').substring(0,10);
+                // Backspace and Delete keys
+                var deleteKey = (e.keyCode == 8 || e.keyCode == 46);
+                var len = ph.length;
+                if(len==0){
+                    ph=ph;
+                }else if(len<4){
+                    ph=ph;
+                }else if(len==4){
+                    ph = ph + (deleteKey ? '' : '- ');
+                }else if(len<7){
+                    ph=ph.substring(0,4)+'-'+ph.substring(4,7);
+                }else if(len==7){
+                    ph=ph.substring(0,4)+'-'+ph.substring(4,7)+ (deleteKey ? '' : '-');
+                }else{
+                    ph=ph.substring(0,4)+'-'+ph.substring(4,7)+'-'+ph.substring(7,10);
+                }
+                this.value = ph;
+            });            
             //--------------------------------------------------------
             $('#D__ID').css('min-height', $vm.min_height);
             //--------------------------------------------------------
