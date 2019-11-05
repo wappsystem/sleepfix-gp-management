@@ -1,0 +1,19 @@
+<section>
+  VmInclude:__COMPONENT__/g/grid.01.html
+</section>
+<script>
+  function F__ID(){
+      //-------------------------------------
+      VmInclude:__COMPONENT__/g/grid.01.js
+      VmInclude:__CURRENT_PATH__/shared-data.js
+      //-------------------------------------
+      $('#title__ID').text('Generalized Anxiety Disorder 7-item (GAD-7) scale')
+      //-------------------------------------
+      var fields="gad_1,gad_2,gad_3,gad_4,gad_5,gad_6,gad_7,GAD";
+      m.fields="_Form,_Status,_Notes,_Participant_ID,"+fields+",Submit_date,Submitted_by,_Delete";
+      //-------------------------------------
+  }
+</script>
+<style>
+  VmInclude:__COMPONENT__/g/grid.01.css
+</style>

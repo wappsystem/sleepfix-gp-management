@@ -202,13 +202,16 @@
 				return before_submit(data, index);
 			}
 			//-------------------------------------
-			m.after_insert = function (data, res) {
-				$vm.alert('Send Email Here');
-				$vm.load_module_v2(m.prefix + "success-page", '', {p_uid:m.input.p_uid})
-				//$vm.load_module_v2(m.prefix + "sleep-difficulty-score-form", '', {p_uid:m.input.p_uid})
-			}
-			//-------------------------------------
-
+            m.after_insert = function (data, res) {
+                if($vm.oq=='bl'){
+                    console.log('A')
+                    $vm.load_module_v2(m.prefix + 'after-screening', '', {p_uid:m.input.p_uid});
+                }
+                else{
+                    console.log('B')
+                    $vm.load_module_v2(m.prefix + 'w6-quesstionnaire', '', {p_uid:m.input.p_uid});
+                }
+            }
 		}
 	</script>
 	<style>

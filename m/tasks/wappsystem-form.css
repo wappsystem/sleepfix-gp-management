@@ -26,7 +26,7 @@
 }
 #D__ID .form-group {
     display: block !important;
-    border-bottom: 1px solid #E5EEF0 !important 
+    /*border-bottom: 1px solid #E5EEF0 !important */
 }
 #D__ID .form-group h4 {
     font-family: 'Roboto Slab';
@@ -72,7 +72,7 @@
     margin-bottom: 0px !important
 }
 #D__ID .form-group:hover {
-     background-color: #FCFBF5
+     /*background-color: #FCFBF5*/
 }
 /* SUBMIT BUTTON */
 #D__ID .btn-primary, #D__ID .btn-primary:active, #D__ID .btn-primary:visited, #D__ID .btn-primary:focus {

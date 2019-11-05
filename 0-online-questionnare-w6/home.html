@@ -4,11 +4,11 @@
             <div class="row">
                 <div class="col-xl-6 col-md-12 col-sm-12 order-xl-2 text-left">
                     <h1>Welcome to SleepFix</h1>
-                    <p> Week 6 Questionnaire</p>
+                    <p> Follow-up questionnaires</p>
                     <div class="row">
                         <div class="col">
-                            <div id=login__ID class=C__ID__s>
-                                <p>Please enter the unique username and password provided by your GP:</p>
+                            <div id=login__ID  class=C__ID__s>
+                                <p>Please enter the unique username and password provided in the email from us:</p>
                                 <input id=username__ID placeholder="Username" class=C__ID__input autocomplete="off" />
                                 &nbsp;&nbsp;<input id=password__ID placeholder="Password" class="C__ID__input"
                                     type=password />
@@ -18,82 +18,76 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-5 col-sm-12 order-xl-1 text-center"> <img
-                        src="https://www.sfix.com.au/images/phone-lrg.png" alt="Sleep App" class="mx-auto" />
+                <div class="col-xl-6 col-sm-12 order-xl-1 text-center"> <img
+                        src="images/phone-lrg.png" alt="Sleep App" class="mx-auto" />
                 </div>
             </div>
         </div>
     </div>
     <script>
-        function F__ID(){
+        function F__ID() {
             //-------------------------------------
-            var m=$vm.module_list['__MODULE__'];
-            if(m.prefix==undefined) m.prefix="";
-            var quest_panel_module="online-questionnaire-panel";
+            var m = $vm.module_list['__MODULE__'];
+            if (m.prefix == undefined) m.prefix = "";
+            var quest_panel_module = "online-questionnaire-panel";
             //-------------------------------------
             $('#username__ID').val('');
             $('#password__ID').val('');
-            var search=window.location.search
-            if(search.indexOf('username=')!=-1){
-                var txt=search.split('username=')[1];
-                var username=txt.split('&')[0];
+            var search = window.location.search
+            if (search.indexOf('username=') != -1) {
+                var txt = search.split('username=')[1];
+                var username = txt.split('&')[0];
                 $('#username__ID').val(username);
             }
-            if(search.indexOf('password=')!=-1){
-                var txt=search.split('password=')[1];
-                var password=txt.split('&')[0];
+            if (search.indexOf('password=') != -1) {
+                var txt = search.split('password=')[1];
+                var password = txt.split('&')[0];
                 $('#password__ID').val(password);
             }
-            $('#D__ID').on('load',function(){
-                $('#footer').css('margin-top','-175px');
+            $('#D__ID').on('load', function () {
+                /*$('#footer').css('margin-top', '-127px');*/
             })
-            $('#signin__ID').on('click',function(){
+            $('#signin__ID').on('click', function () {
                 //------------------------------------
                 $('#ErrMsg__ID').text("");
-                var username=$('#username__ID').val();
-                var password=$('#password__ID').val();
-                $vm.request({cmd:"client-signin",table:m.Table,field:'_Password',username:username,password:password},function(res){
-                    if(res.status=="np"){
+                var username = $('#username__ID').val();
+                var password = $('#password__ID').val();
+                $vm.request({ cmd: "client-signin", table: m.Table, field: '_Password', username: username, password: password }, function (res) {
+                    if (res.status == "np") {
                         $('#ErrMsg__ID').text("Invalid username or password.")
                         return;
                     }
-                    if(res.status=="ok"){
-                        $vm.user_name=res.sys.username;
-                        $vm.set_token(res.sys.token,username);
-                        $vm.online_questionnaire_w6=1;
-                        $('#vm_username').text('Signed in as '+res.sys.username);
+                    if (res.status == "ok") {
+                        $vm.user_name = res.sys.username;
+                        $vm.set_token(res.sys.token, username);
+                        $vm.online_questionnaire = 1;
+                        $('#vm_username').text('Signed in as ' + res.sys.username);
                         //var x = document.getElementById("vm_signout");
                         //x.className="";
                         //--------------------
                         //create a log record, for a special project
-                        jQuery.ajaxSetup({async:false});
-                        var tb=$vm.module_list["login-w6-data"].Table;
-                        $vm.request({cmd:"find-s",table:tb,options:{}},function(res){
-                            if(res.result.length==0){
-                                var p_uid=username.split('-')[0];
-                                var data={Participant:p_uid,Participant_uid:p_uid,sysStatus:"#00FF00"}
-                                $vm.request({cmd:'insert',table:tb,data:data},function(res){
+                        jQuery.ajaxSetup({ async: false });
+                        var tb = $vm.module_list["login-data"].Table;
+                        $vm.request({ cmd: "find-s", table: tb, options: {} }, function (res) {
+                            if (res.result.length == 0) {
+                                var p_uid = username.split('-')[0];
+                                var data = { Participant: p_uid, Participant_uid: p_uid, sysStatus: "#00FF00" }
+                                var index={I2:p_uid}
+                                $vm.request({ cmd: 'insert', table: tb, data: data, index:index }, function (res) {
                                 });
                             }
                         });
+                        jQuery.ajaxSetup({ async: true });
+                        $vm.oq='w6'
+                        $vm.part_user=username;
                         //--------------------
                         //$vm.load_module(m.questionnaire_panel,'',{record:res.result});
-                        var task="";
-                        tb=$vm.module_list['isi-w6-form'].Table;
-                        var p_uid=username.split('-')[0];
-                        var qry={I2:p_uid};
-                        $vm.request({cmd:"find-s",table:tb,query:qry,options:{}},function(res){
-                            if(res.result.length==0) task='isi-w6-form';
-                        })
-                        jQuery.ajaxSetup({async:true});
-                        $('#footer').css('margin-top','0');
-                        if(task!=""){
-                            p_uid=username.split('-')[0];
-                            $vm.load_module_v2(m.prefix + task, '', {p_uid:p_uid});
-                        }
-                        else  $vm.load_module_v2(m.prefix + 'thank-you-page', '', {p_uid:p_uid});
+                        //get_next_task_bl(username)
+                        var p_uid = username.split('-')[0];
+                        var qry = { I2: p_uid };
+                        $vm.load_module_v2(m.prefix + 'w6-quesstionnaire', '', { p_uid: p_uid });
                     }
-                    else{
+                    else {
                         $('#ErrMsg__ID').text("Invalid username or password.")
                     }
                 });
@@ -107,7 +101,6 @@
             overflow: auto;
         }
 
-        VmInclude:__CURRENT_PATH__/../../m/tasks/wappsystem-form.css 
         #D__ID .form-group:hover {
             background-color: rgb(0, 0, 0, 0);
         }
@@ -127,14 +120,13 @@
 
             margin-bottom: 0px !important;
             border-radius: 0px;
-            padding-top: 21px;
+            /*padding-top: 21px;*/
             /*100px-80px*/
         }
 
         .home img {
-            width: 560px;
+            width: auto;
             height: auto;
-            margin-left: -65px !important;
         }
 
         @media (max-width: 1200px) {
@@ -383,5 +375,8 @@
             cursor: pointer;
             font: 12pt "Arial";
         }
+        VmInclude:__CURRENT_PATH__/../../m/tasks/wappsystem-form.css 
+
+
     </style>
 </div>

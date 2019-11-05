@@ -94,4 +94,3 @@ var status_of_data=function(data){
     else if(N1==0)  	status='#00FF00';
     return status;
 }
-//-------------------------------------

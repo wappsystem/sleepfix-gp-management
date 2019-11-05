@@ -126,6 +126,7 @@
                 $('#D__ID').scrollTop(0);
                 $(window).scrollTop(0);
                 m.input.goback = 1;
+                console.log(JSON.stringify($vm.part_user))
 				var I1 = $('#F__ID input[name=sequence_no').val();
 				if (I1 == '') {
 					$vm.request({ cmd: "find", table: m.Table, sort: { I1: -1 }, skip: 0, limit: 1 }, function (res) {
@@ -160,7 +161,7 @@
                 }else if(len<4){
                     ph=ph;
                 }else if(len==4){
-                    ph = ph + (deleteKey ? '' : '- ');
+                    ph = ph + (deleteKey ? '' : '-');
                 }else if(len<7){
                     ph=ph.substring(0,4)+'-'+ph.substring(4,7);
                 }else if(len==7){
@@ -182,18 +183,19 @@
 			}
             //-------------------------------------
             m.after_insert = function (data, res) {
-                $vm.load_module_v2(m.prefix + 'isi-form', '', {p_uid:m.input.p_uid});
+                if($vm.oq=='bl'){
+                    console.log('A')
+                    $vm.load_module_v2(m.prefix + 'after-screening', '', {p_uid:m.input.p_uid});
+                }
+                else{
+                    console.log('B')
+                    $vm.load_module_v2(m.prefix + 'w6-quesstionnaire', '', {p_uid:m.input.p_uid});
+                }
             }
 			//-------------------------------------
         }
     </script>
     <style>
-        #D__ID {
-            height: 100%;
-            animation: vm_module_fadein 1.0s;
-            overflow: auto;
-        }
-
         VmInclude:__CURRENT_PATH__/wappsystem-form.css
     </style>
 </div>

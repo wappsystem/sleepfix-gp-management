@@ -1,93 +1,101 @@
-<div class="container-fluid" style='max-width:600px'>
-	<div  class="text-left panel__ID">
-		Please answer the following questionnaires. Follow the instruction on each of them.<br><br>
-		<div id=items__ID></div>
-	</div>
-</div>
+<div id=D__ID>
+	<form id="F__ID" class="text-left">
+	</form>
 
 <script>
 	function F__ID(){
+		//-------------------------------------
+		VmInclude: __COMPONENT__/f/form.01.js
+		VmInclude: __CURRENT_PATH__/tasks/shared-form.js
+		//-------------------------------------
+
 		//--------------------------------------------------------
         //var m=$vm.module_list['__MODULE__'];
         var id_list;
 		//--------------------------------------------------------
 		$('#D__ID').on('load',function(){
+			get_next_task_bl(m.input.p_uid)
 		})
 		//--------------------------------------------------------
-		$('#D__ID').on('show',function(){
-            var record=$vm.vm['__ID'].input.record;
-			id_list=record.Data.List;
-            if(id_list==undefined){
-                alert("No questionnaire was found");
-                return;
-            }
-			setup_panel();
+		var get_next_task_bl=function(username){
+		var task = "";
+		var tb = $vm.module_list['screening-data'].Table;
+		var p_uid = username.split('-')[0];
+		var qry = { I2: p_uid };
+		jQuery.ajaxSetup({ async: false });
+		$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+			if (res.result.length == 0) task = 'screening-form';
+			else if (res.result[0].Data.Eligible != "Yes") task = 'screen-failure-thank-you-page';
 		})
-		//--------------------------------------------------------
-		var status=[]
-		//---------------------------------
-		var setup_panel=function(){
-			//----------------------------------
-		    var ids=id_list.split(',');
-		    var txt="<ul>";
-		    //----------------------------------
-		    for(var i=0;i<ids.length;i++){
-				var m1=ids[i];
-		        if(status[m1]==undefined){
-		            status[m1]={rid:0}
-				}
-				var task_name="not found";
-				var mm=$vm.module_list[m1];
-				if(mm!=undefined){
-					task_name=mm.task_name;
-					status[m1].Table=mm.Table;
-				}
-				txt+="<li m="+m1+">"+task_name+"</li>";
-		    }
-            txt+"</ul>";
-		    $('#items__ID').html(txt);
-		    //----------------------------------
-			$('#items__ID li').each(function(){
-		        var $li=$(this);
-				$li.removeClass('li_allowed__ID')
-				$li.addClass('li_not_allowed__ID')
+		if (task == "") {
+			tb = $vm.module_list['pis-form'].Table;
+			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+				if (res.result.length == 0) task = 'pis-form';
 			})
-			//----------------------------------
-			$('#items__ID li').each(function(){
-		        var $li=$(this);
-		        var m1=$li.attr('m');
-		        if(status[m1].rid==0){
-					jQuery.ajaxSetup({async:false});
-					$vm.request({cmd:"find-s",table:$vm.module_list[m1].Table,options:{}},function(res){
-						if(res.permission==false){
-							alert("No permission");
-							return;
-						}
-						if(res.result.length==0){
-						}
-						else{
-							status[m1].rid=1;
-						}
-					})
-					jQuery.ajaxSetup({async:true});
-		        }
-		        if(status[m1].rid==0){
-					$li.removeClass('li_not_allowed__ID')
-					$li.addClass('li_allowed__ID')
-		            var task_name=$li.html();
-		            var module=$li.attr('m');
-		            $li.html("<u style='cursor:pointer' m="+module+">"+task_name+"</u>");
-		            $li.find('u').on('click',function(){
-		                var m1=$(this).attr('m');
-                        var record=$vm.vm['__ID'].input.record;
-						$vm.load_module(m1,'',{participant_record:record,goback:1});
-		            });
-		            return false; // break out the loop
-		        }
-		    })
-		    //----------------------------------
 		}
-		//--------------------------------------------------------
+		if (task == "") {
+			tb = $vm.module_list['consent-form'].Table;
+			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+				if (res.result.length == 0) task = 'consent-form';
+			})
+		}
+		if (task == "") {
+			tb = $vm.module_list['contact-form'].Table;
+			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+				if (res.result.length == 0) task = 'contact-form';
+			})
+		}
+		if (task == "") {
+			tb = $vm.module_list['baseline-form'].Table;
+			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+				if (res.result.length == 0) task = 'baseline-form';
+			})
+		}
+		if (task == "") {
+			tb = $vm.module_list['isi-form'].Table;
+			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+				if (res.result.length == 0) task = 'isi-form';
+			})
+		}
+		if (task == "") {
+			tb = $vm.module_list['sq-form'].Table;
+			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+				if (res.result.length == 0) task = 'sq-form';
+			})
+		}
+		if (task == "") {
+			tb = $vm.module_list['ess-form'].Table;
+			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+				if (res.result.length == 0) task = 'ess-form';
+			})
+		}
+		if (task == "") {
+			tb = $vm.module_list['ffs-form'].Table;
+			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+				if (res.result.length == 0) task = 'ffs-form';
+			})
+		}
+		if (task == "") {
+			tb = $vm.module_list['phq-9-form'].Table;
+			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+				if (res.result.length == 0) task = 'phq-9-form';
+			})
+		}
+		if (task == "") {
+			tb = $vm.module_list['gad-7-form'].Table;
+			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+				if (res.result.length == 0) task = 'gad-7-form';
+			})
+		}
+		jQuery.ajaxSetup({ async: true });
+		$('#footer').css('margin-top', '0');
+		if (task != "") {
+			p_uid = username.split('-')[0];
+			$vm.load_module_v2(m.prefix + task, '', { p_uid: p_uid });
+		}
+    else $vm.load_module_v2(m.prefix + 'success-page', '', { p_uid: p_uid });
+}
+
 	}
 </script>
 <style>
@@ -119,3 +127,4 @@
 		cursor:pointer!Important;
 	}
 </style>
+</div>

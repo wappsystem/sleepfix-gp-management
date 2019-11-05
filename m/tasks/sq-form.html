@@ -1,0 +1,105 @@
+<div id=D__ID>
+	<!--third html start -->
+	<div class="container mt-95 mb-3">
+		<div class="row">
+			<!-- form container start -->
+			<div class="col-12 col-lg-12 col-md-12 col-sm-12 mx-auto formbox">
+				<div class="row">
+					<div class="col-12">
+						<!-- form start -->
+						<form id="F__ID" class="text-left">
+							<h3 id=title__ID></h3>
+							<!-- participant part for all tsak forms -------------------->
+							<div id="participant_div__ID">
+								<div class="form-group">
+									<fieldset class="subquestions">
+										<label><span class="">Participant</span>
+											<input type=text name="Participant" class=form-control id=Participant__ID
+												data-id="Participant" />
+										</label><br>
+										<label><span class="">Participant ID</span>
+											<input type=text name="Participant_uid" class=form-control readonly />
+										</label>
+									</fieldset>
+								</div>
+							</div>
+							<div class="form-group">
+								<h4>(i) During the last week rate, how would you rate your overall sleep quality?
+								</h4>
+								<div class="questiongroup ">
+									<fieldset class="subquestions">
+										<label class="radiobuttons">
+											<input type="radio" name="sq_1" value="1" required>
+											<span class="checkmark no-dot">1</span> Very good</label><br>
+										<label class="radiobuttons">
+											<input type="radio" name="sq_1" value="2">
+											<span class="checkmark no-dot">2</span> Fairly good</label><br>
+										<label class="radiobuttons">
+											<input type="radio" name="sq_1" value="3">
+											<span class="checkmark no-dot">3</span> Fairly bad</label><br>
+										<label class="radiobuttons">
+											<input type="radio" name="sq_1" value="4">
+											<span class="checkmark no-dot">4</span> Very bad</label><br>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="questiongroup ">
+                                    <h4>(ii) Over the last one month period, on average:</h4>
+                                    <fieldset class="">
+                                        <label><span class="">How long does it take you to fall asleep?</span>
+                                            <input class="form-control" type="number" min=0 max=480 name="sq_asleep" placeholder='minutes' required>
+                                        </label><br>
+                                        <label><span class="">After falling asleep, how long were you awake during the night?</span>
+                                            <input class="form-control" type="number" min=0 max=480 name="sq_awake" placeholder='minutes' required>
+                                        </label><br>
+                                        <label><span class="">How long did you sleep for each night?</span>
+                                            <input class="form-control" type="number" step='0.1' min=0 max=15 name="sq_sleep" placeholder='hours' required>
+                                        </label><br>
+                                    </fieldset>
+                                </div>
+                            </div>
+							<div style="text-align:right">
+								<button type="submit" id="submit__ID" class="btn btn-primary btn-lg">Next</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		function F__ID() {
+			//-------------------------------------
+			VmInclude: __COMPONENT__/f/form.01.js
+			VmInclude: __CURRENT_PATH__/shared-form.js
+			//-------------------------------------
+			m.default_load = m.load;
+			m.load = function () {
+                m.default_load();
+                $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name);
+				m.input.goback = 1;
+			}
+			//-------------------------------------
+            m.after_insert = function (data, res) {
+                if($vm.oq=='bl'){
+                    console.log('A')
+                    $vm.load_module_v2(m.prefix + 'after-screening', '', {p_uid:m.input.p_uid});
+                }
+                else{
+                    console.log('B')
+                    $vm.load_module_v2(m.prefix + 'w6-quesstionnaire', '', {p_uid:m.input.p_uid});
+                }
+            }
+			//-------------------------------------
+
+		}
+	</script>
+	<style>
+		#D__ID .mt-95 {
+			max-width: 600px;
+		}
+
+		VmInclude:__CURRENT_PATH__/wappsystem-form.css
+	</style>
+</div>
