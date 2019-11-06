@@ -184,18 +184,46 @@
         //-------------------------------------
         var before_submit = m.before_submit;
         m.before_submit = function (data, index) {
-          data.GAD=(parseInt(data.gad_1)+parseInt(data.gad_2)+parseInt(data.gad_3)+parseInt(data.gad_4)+parseInt(data.gad_5)+parseInt(data.gad_6)+parseInt(data.gad_7)).toString();
-          return before_submit(data, index);
+          alert(1)
+          send_email();
+          return false;
+
+          //data.GAD=(parseInt(data.gad_1)+parseInt(data.gad_2)+parseInt(data.gad_3)+parseInt(data.gad_4)+parseInt(data.gad_5)+parseInt(data.gad_6)+parseInt(data.gad_7)).toString();
+          //return before_submit(data, index);
         }
         //-------------------------------------
         m.after_insert = function (data, res) {
             if($vm.oq=='bl'){
               $vm.alert('Send Email Here');
+              
               $vm.load_module_v2(m.prefix + "success-page", '', {p_uid:m.input.p_uid})
             }
             else{
                 $vm.load_module_v2(m.prefix + "thank-you-page", '', {p_uid:m.input.p_uid})
             }
+        }
+        //-------------------------------------
+        var send_email=function(){
+          alert(2)
+          var url="https://prod-31.australiasoutheast.logic.azure.com:443/workflows/eed1e940d1e84fc6a0c85b23aeeba2b1/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=5qT-10hModS8fCHpn3k1iZ-ojRi75rI1xI1fj7i0TpQ";
+              var data={
+                "emailaddress":"gunnar.unger@gmail.com",
+                "first_name":"Jimmy",
+                "code":"123456"
+              }
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                  if (this.readyState == 4 && this.status == 200){
+                  }
+                  else if(this.readyState == 4 && this.status == 403){
+                  }
+                  if(this.status == 404){
+                      $vm.alert(url+", 404 (Not found)");
+                  }
+              }
+              xmlHttp.open("POST", url, true); // true for asynchronous
+              xmlHttp.setRequestHeader("Content-Type", "application/json");
+              xmlHttp.send(JSON.stringify(data));
         }
         //-------------------------------------
       }
