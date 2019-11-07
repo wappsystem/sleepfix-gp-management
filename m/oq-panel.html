@@ -75,12 +75,14 @@
 				if (res.result.length == 0) task = 'ffs-form';
 			})
 		}
+/*
 		if (task == "") {
 			tb = $vm.module_list['phq-9-form'].Table;
 			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
 				if (res.result.length == 0) task = 'phq-9-form';
 			})
 		}
+*/
 		if (task == "") {
 			tb = $vm.module_list['gad-7-form'].Table;
 			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {

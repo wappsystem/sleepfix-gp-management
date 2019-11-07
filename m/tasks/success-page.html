@@ -54,15 +54,8 @@
                 m.default_load();
                 $('#D__ID').scrollTop(0);
 				$(window).scrollTop(0);
-				var p_uid=m.input.puid;
-				var qry={I2:p_uid};
-				var tb=$vm.module_list['contact-form'].Table;
-				$vm.request({cmd:"find-s",table:tb,query:qry,options:{}},function(res){
-					if(res.result.length!=0) {
-						$('#first_name__ID').text(res.result[0].Data.first_name);
-						$('#access__ID').text(res.result[0].Data.access_code);
-					}
-				})
+				$('#first_name__ID').text(m.input.first_name);
+				$('#access__ID').text(m.input.access_code);
 			}
 			$('#study_page__ID').on('click',function(){
 				$vm.load_module_v2(m.prefix + 'sleepfix-study-page', '', {});
