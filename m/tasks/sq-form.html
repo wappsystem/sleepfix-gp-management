@@ -77,7 +77,6 @@
 			m.default_load = m.load;
 			m.load = function () {
                 m.default_load();
-                $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name);
 				m.input.goback = 1;
 			}
 			//-------------------------------------

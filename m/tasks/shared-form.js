@@ -37,6 +37,7 @@ m.load=function(){
         $('#pdf__ID').hide();
         $('#participant_div__ID').hide();
     }
+    $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name);
     console.log(JSON.stringify(m.input))
 //--------------------------
     if(m.input!=undefined && m.input.p_uid!=undefined){
