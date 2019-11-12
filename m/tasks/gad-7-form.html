@@ -163,6 +163,7 @@
       		      </div>
                 <div style="text-align:right">
                   <button type="submit" id="submit__ID" class="btn btn-primary btn-lg">Next</button>
+                  <p id=page_no__ID style="margin-right:30px"></p>
                 </div>
               </form>
             </div>
@@ -180,6 +181,7 @@
         m.load = function () {
           m.default_load();
           m.input.goback = 1;
+
         }
         //-------------------------------------
         var before_submit = m.before_submit;
@@ -189,7 +191,21 @@
         }
         //-------------------------------------
         m.after_insert = function (data, res) {
-          var qry={I2:m.input.p_uid};
+          var q_url="";
+          /*var u=parseInt(m.input.p_uid);
+          var qry={UID:u};
+          var tb=$vm.module_list['participant-form'].Table;
+          jQuery.ajaxSetup({ async: false });
+          $vm.request({cmd:"find-s",table:tb,query:qry,options:{}},function(res){
+            if(res.result.length!=0) {
+              var db=""; if(window.location.toString().indexOf('tb=demo')!=-1) db="&tb=demo";
+              var d="";  if(window.location.toString().indexOf('_d=1')!=-1) d="&_d=1";
+              var p="";  if(window.location.toString().indexOf('_p=1')!=-1) p="&_p=1";
+              var u="?username="+res.result[0].UID+"&password="+res.result[0].Data._Password;
+              q_url=$vm.module_list["oq"].url+u+db+d+p;
+            }
+          });*/
+          qry={I2:m.input.p_uid};
           var tb=$vm.module_list['contact-form'].Table;
           $vm.request({cmd:"find-s",table:tb,query:qry,options:{}},function(res){
             if(res.result.length!=0) {
@@ -198,6 +214,7 @@
               var param=[];
               param.push(res.result[0].Data.email);
               param.push(res.result[0].Data.first_name);
+              param.push(q_url);
               param.push(res.result[0].Data.access_code);
               if($vm.oq=='bl'){
                 send_email(param);              
@@ -209,6 +226,7 @@
             }
             else $vm.alert("Sorry, something went wrong!")
           })
+          //jQuery.ajaxSetup({ async: true });
         }
         //-------------------------------------
         var send_email=function(param){
@@ -216,7 +234,8 @@
           var data={
             "emailaddress":""+param[0]+"",
             "first_name":""+param[1]+"",
-            "code":""+param[2]+""
+            "link":""+param[2]+"",
+            "code":""+param[3]+""
           }
           var xmlHttp = new XMLHttpRequest();
           xmlHttp.onreadystatechange = function () {

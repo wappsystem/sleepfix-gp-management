@@ -38,6 +38,7 @@ m.load=function(){
         $('#participant_div__ID').hide();
     }
     $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name);
+    $('#page_no__ID').text($vm.module_list[$vm.vm['__ID'].name].page);
     console.log(JSON.stringify(m.input))
 //--------------------------
     if(m.input!=undefined && m.input.p_uid!=undefined){
