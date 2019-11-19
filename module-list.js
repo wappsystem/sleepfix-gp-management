@@ -69,6 +69,7 @@
 
         "sleepfix-study-page": {url:"$H/m/tasks/sleepfix-study-page1.html"},
         "progress-report":{url:"$H/m/tasks/progress-data.html",   Table:"sleepfix-gp-login",task_name:"Progress report"},
+        "start-date":   {url:"$H/m/tasks/start-date-form.html",   Table:"sleepfix-gp-contact", task_name:"Start Date"},
         "email-data":   {url:"$H/m/tasks/email-data.html",   Table:"sleepfix-gp-contact", form_module:"email-form",task_name:"email"},
         "email-01":   {url:"$H/m/tasks/email-01.html"},
         "email-r1":   {url:"$H/m/tasks/email-r1.html"},
