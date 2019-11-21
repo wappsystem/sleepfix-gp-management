@@ -209,7 +209,20 @@
                     $vm.load_module_v2(m.prefix + 'after-screening', '', {p_uid:m.input.p_uid});
                 }
                 else{
-                    console.log('B')
+					console.log('B')
+					qry = { I2: m.input.p_uid };
+					var tb = $vm.module_list['contact-form'].Table;
+					jQuery.ajaxSetup({ async: false });
+					$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+						if (res.result.length != 0) {
+							res.result[0].Data.Q="1";
+							var recid = res.result[0]._id;
+								$vm.request({ cmd: "update", id: recid, table: tb, data: res.result[0].Data}, function (res) {
+								});
+						}
+						else $vm.alert("Sorry, something went wrong in ISI!")
+					})
+					jQuery.ajaxSetup({ async: true });					
                     $vm.load_module_v2(m.prefix + 'w6-quesstionnaire', '', {p_uid:m.input.p_uid});
                 }
             }

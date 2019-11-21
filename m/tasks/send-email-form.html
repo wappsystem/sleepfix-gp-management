@@ -1,0 +1,196 @@
+<div id=D__ID>
+	<!--third html start -->
+	<div class="container mt-95 mb-3">
+		<div class="row">
+			<!-- form container start -->
+			<div class="col-12 col-lg-12 col-md-12 col-sm-12 mx-auto formbox">
+				<div class="row">
+					<div class="col-12">
+						<!-- form start -->
+						<form id="F__ID">
+							<h3 id=title__ID></h3>
+							<!-- participant name and study id -->
+							<div id="participant_div__ID">
+								<div class="form-group">
+									<fieldset class="subquestions">
+										<label><span class="">Participant ID</span>
+											<input type=text name="Participant_uid" class=form-control readonly />
+										</label>
+									</fieldset>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="questiongroup ">
+									<fieldset class="subquestions">
+										<label><span class="">Date email sent</span>
+											<input class="form-control" type="date" id=emaildate__ID> 
+										</label><br>
+									</fieldset>
+								</div>
+							</div>
+							<button type="submit" id="submit__ID" class="btn btn-primary btn-lg">Send Email</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		function F__ID() {
+			//-------------------------------------
+			VmInclude: __COMPONENT__/f/form.01.js
+			VmInclude: __CURRENT_PATH__/shared-form.js
+			//-------------------------------------
+            m.default_load = m.load;
+            m.load = function () {
+				$('#emaildate__ID').attr('name',m.input.email);
+				m.default_load();
+				m.input.goback = 1;
+				$('#emaildate__ID').val(get_now_date())
+				$('#title__ID').text(m.input.title)
+
+            }
+            //-------------------------------------
+			var before_submit = m.before_submit;
+			m.before_submit = function (data, index) {
+				return before_submit(data, index);
+			}
+            //-------------------------------------
+            m.after_update = function (data, res) {
+				var tb = $vm.module_list['participant-data'].Table;
+				var p_uid=parseInt(data.Participant_uid);
+				var qry = { UID: p_uid };
+				var pw="";
+                jQuery.ajaxSetup({ async: false });
+                $vm.request({ cmd: "find", table: tb, query: qry, options: {} }, function (res) {
+                    if (res.result.length != 0) {
+						pw=res.result[0].Data._Password;
+                    }
+                    else $vm.alert("Sorry, something went wrong!")
+                })
+                jQuery.ajaxSetup({ async: true });
+
+				var db=""; if(window.location.toString().indexOf('tb=demo')!=-1) db="&tb=demo";
+				var d="";  if(window.location.toString().indexOf('_d=1')!=-1) d="&_d=1";
+				var p="";  if(window.location.toString().indexOf('_p=1')!=-1) p="&_p=1";
+				var u="?username="+data.Participant_uid+"&password="+pw;
+				var q_url=$vm.module_list['w6-quesstionnaire'].url+u+db+d+p;
+				var param = [];
+				var url='';
+				var sms_url='';
+				switch(m.input.email){
+                    case 'Email_Access_Code':
+					 	url='https://prod-31.australiasoutheast.logic.azure.com:443/workflows/eed1e940d1e84fc6a0c85b23aeeba2b1/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=5qT-10hModS8fCHpn3k1iZ-ojRi75rI1xI1fj7i0TpQ';
+					 	sms_url='https://prod-14.australiasoutheast.logic.azure.com:443/workflows/d97fd9ca20144b8d8a8faee0ca2d1693/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=_WljPgPFdsbYx1nr3SM9ifRcKZ0VHleW-b-Gj-EI-dA';
+                    break;
+                    case 'Reminder_1_Access_Code':
+					 	url='https://prod-16.australiasoutheast.logic.azure.com:443/workflows/aa091facf4184e8bbe50379ced010bad/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=_sfkcdVWQNIBT-Oka0oWuUZeCOL8RMr405pxD1q_-H4';
+					 	sms_url='https://prod-06.australiasoutheast.logic.azure.com:443/workflows/1a78764f87d44c33aa07fbe8d470dcbb/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=mv9gSe--mF9YabIUr3a_vIQCtyLCLzuwvgDAlEcXLPE';
+                    break;
+                    case 'Reminder_2_Access_Code':
+					 	url='https://prod-03.australiasoutheast.logic.azure.com:443/workflows/f4e98ddd5298453fb8b47e6cd939e5f2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=7ErEtyIWzUESX61kebXXVSHqgnJPvCQ33OjmJTC5SMw';
+					 	sms_url='https://prod-02.australiasoutheast.logic.azure.com:443/workflows/43c7da8134f3427a98e933570f5c4c89/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=VzA45ymwpm0s0VGO3tBvt929Q2kGslA9BRJi_cjXgpA';
+                    break;
+                    case 'Email_Week_6':
+					 	url='https://prod-31.australiasoutheast.logic.azure.com:443/workflows/ee1a36fdc89f48149e363d43e0ead7d6/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=LhMhk4SBfamj9zO4Zq_TkSUynGeOacHo0orUk5uxLzo';
+					 	sms_url='https://prod-11.australiasoutheast.logic.azure.com:443/workflows/ef9686c902fd464c865ce78e63f0de34/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=BBMBveg2yC8NI3L-UIk4tfsl0Z0qBb4k0GdtG886LaU';
+                    break;
+                    case 'Reminder_1_Week_6':
+					 	url='https://prod-07.australiasoutheast.logic.azure.com:443/workflows/a96525f0b2504ed0a27db70bd9290694/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=XcZ5kSmtKi2foiXEmKafdFSPAsxprspu8_J8nLrHUS4';
+					 	sms_url='https://prod-29.australiasoutheast.logic.azure.com:443/workflows/faa5dc38af684aa1b39184e9422edf11/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=GLyXA9_WVCImRrT1zGWFHLTRlWbUgqvKQUYj50xF3Wc';
+                    break;
+                    case 'Reminder_2_Week_6':
+					 	url='https://prod-29.australiasoutheast.logic.azure.com:443/workflows/726c61605bdb48e8a558d0bad11ba5f8/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=x0PXhE9bB5YHHRqR_vwIvvc_4deNIo2pKqcVuGQfSxQ';
+					 	sms_url='https://prod-02.australiasoutheast.logic.azure.com:443/workflows/43c7da8134f3427a98e933570f5c4c89/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=VzA45ymwpm0s0VGO3tBvt929Q2kGslA9BRJi_cjXgpA';
+                    break;
+				}
+				param.push(data.email); //0
+				param.push(data.first_name); //1
+				param.push(q_url); //2
+				param.push(data.access_code); //3
+				param.push(data.phone) //4
+				param.push(data.sms) //5
+				param.push(url) //6
+				param.push(sms_url) //7
+				$vm.alert('Send Email Disabled Email:'+param[0]+' First Name:'+param[1]+' Access Code:'+param[3]+' Phone:'+param[4]+' SMS:'+param[5]); //send_email(param);              
+				console.log(JSON.stringify(param))
+				$vm.refresh=1;
+                //if(m.change_status==undefined) m.change_status=0;
+                m.change_status++;
+                window.history.go(-1);                       //modify
+
+            }
+            //-------------------------------------
+            var send_email = function (param) {
+                var url = param[6]
+                var sms_url = param[7]
+                var data = {
+                    "emailaddress": "" + param[0] + "",
+                    "first_name": "" + param[1] + "",
+                    "link": "" + param[2] + "",
+                    "code": "" + param[3] + ""
+                }
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                    }
+                    else if (this.readyState == 4 && this.status == 403) {
+                    }
+                    if (this.status == 404) {
+                        $vm.alert(url + ", 404 (Not found)");
+                    }
+                }
+                xmlHttp.open("POST", url, true); // true for asynchronous
+                xmlHttp.setRequestHeader("Content-Type", "application/json");
+                xmlHttp.send(JSON.stringify(data));
+                //------------------------------------
+                //SMS alert
+                //------------------------------------
+                if(param[5]=='on'){
+                    var sms_data = {
+                        "emailaddress": "" + param[4].replace(/-/g,'') + "@directsms.com.au",
+                        "first_name": "" + param[1] + "",
+                        "link": "" + param[2] + "",
+                        "code": "" + param[3] + ""
+                    }
+                    var sms_xmlHttp = new XMLHttpRequest();
+                    sms_xmlHttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                        }
+                        else if (this.readyState == 4 && this.status == 403) {
+                        }
+                        if (this.status == 404) {
+                            $vm.alert(url + ", 404 (Not found)");
+                        }
+                    }
+                    sms_xmlHttp.open("POST", sms_url, true); // true for asynchronous
+                    sms_xmlHttp.setRequestHeader("Content-Type", "application/json");
+                    sms_xmlHttp.send(JSON.stringify(sms_data));                                        
+				}
+			}
+			//-------------------------------------
+            var get_now_date = function () {
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1; //January is 0!
+                var yyyy = today.getFullYear();
+                var hh = today.getHours()
+                var mn = today.getMinutes()
+                var ss = today.getSeconds()
+                if (dd < 10) { dd = '0' + dd; }
+                if (mm < 10) { mm = '0' + mm; }
+                if (mn < 10) { mn = '0' + mn; }
+                if (hh < 10) { hh = '0' + hh; }
+                if (ss < 10) { ss = '0' + ss; }
+                return yyyy + '-' + mm + '-' + dd;
+            }
+		}
+	</script>
+	<style>
+		#D__ID .mt-95 {
+			max-width: 600px;
+		}
+
+		VmInclude:__CURRENT_PATH__/wappsystem-form.css
+	</style>
+</div>

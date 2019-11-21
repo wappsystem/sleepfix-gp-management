@@ -8,7 +8,7 @@
             VmInclude:__COMPONENT__/g/grid.01.js
             VmInclude:__CURRENT_PATH__/shared-data.js
                 //-------------------------------------
-            var fields="Participant ID|I2,First Name|first_name,Last Name|last_name,Email|email,Access Code|access_code,Start_Date,Email_Access_Code,Reminder_1_Access_Code,Reminder_2_Access_Code,Email_Week_6,Reminder_1_Week_6,Reminder_2_Week_6";
+            var fields="Participant ID|I2,First Name|first_name,Last Name|last_name,Email|email,Access Code|access_code,Start_Date,Email_Access_Code,Reminder_1_Access_Code,Reminder_2_Access_Code,Q,Email_Week_6,Reminder_1_Week_6,Reminder_2_Week_6";
             m.fields=""+fields+"";
             //-------------------------------------
             $('#new__ID').hide();
@@ -17,6 +17,20 @@
             m.cell_render=function(records,I,field,td){
                 //console.log(JSON.stringify(records[I].Data))
                 switch(field){
+                    case 'Q':
+                        var v=records[I].Data.Q;
+                        if(v=='2'){
+                            td.html("<i class='fa fa-smile'></i>");
+                            td.css('color','green')
+                        }
+                        else if(v=='1'){
+                            td.html("<i class='fa fa-meh'></i>");
+                            td.css('color','orange')
+                        }
+                        else{
+                            td.html("")
+                        }
+                    break;
                     case 'Start_Date':
                     var s=records[I].Data["Start_Date"]
                         if(s!='' && s!=null && s!=undefined){
@@ -47,7 +61,7 @@
                             }
                             td.html(html);
                             td.find('u').on('click',function(){
-                                $vm.load_module_v2('send-email','',{record:records[I],email:'email6w'})
+                                $vm.load_module_v2('send-email','',{record:records[I],email:'Email_Week_6',title:'Send 6 weeks email'})
                             })
                         }
                     break;
@@ -58,9 +72,14 @@
                             var dt1=$vm.date_yyyymmdd_parse(s);
                             var dt2=$vm.date_add_days(dt1,44);
                             html="<u style='cursor:pointer'>"+$vm.yyyymmdd_to_ddmmyyyy($vm.date_to_string_yyyymmdd(dt2))+"</u>";
+                            s=records[I].Data["Reminder_1_Week_6"]
+                            if(s!='' && s!=null && s!=undefined){
+                                html="<u style='cursor:pointer;'>"+s+"</u>";
+                                html+=' <i style="color:green;font-weight: 900" class="far fa-check-circle"></i>';
+                            }
                             td.html(html);
                             td.find('u').on('click',function(){
-                                $vm.load_module_v2('send-email','',{record:records[I],email:'email6wr1'})
+                                $vm.load_module_v2('send-email','',{record:records[I],email:'Reminder_1_Week_6',title:'Send 6 weeks reminder 1'})
                             })
                         }
                     break;
@@ -71,15 +90,63 @@
                             var dt1=$vm.date_yyyymmdd_parse(s);
                             var dt2=$vm.date_add_days(dt1,46);
                             html="<u style='cursor:pointer'>"+$vm.yyyymmdd_to_ddmmyyyy($vm.date_to_string_yyyymmdd(dt2))+"</u>";
+                            s=records[I].Data["Reminder_2_Week_6"]
+                            if(s!='' && s!=null && s!=undefined){
+                                html="<u style='cursor:pointer;'>"+s+"</u>";
+                                html+=' <i style="color:green;font-weight: 900" class="far fa-check-circle"></i>';
+                            }
                             td.html(html);
                             td.find('u').on('click',function(){
-                                $vm.load_module_v2('email-r2','',{record:records[I],email:'email6wr2'})
+                                $vm.load_module_v2('send-email','',{record:records[I],email:'Reminder_2_Week_6',title:'Send 6 weeks reminder 2'})
                             })
                         }
                     break;
+                    case 'Email_Access_Code':
+                        var s=records[I].Data['Email_Access_Code'];
+                        if(s!='' && s!=null && s!=undefined){
+                            html="<u style='cursor:pointer;'>"+s+"</u>";
+                            html+=' <i style="color:green;font-weight: 900" class="far fa-check-circle"></i>';
+                        }
+                        else {
+                            html="<u style='cursor:pointer'>Not ready</u>"
+                        }
+
+                        td.html(html);
+                        td.find('u').on('click',function(){
+                            $vm.load_module_v2('send-email','',{record:records[I],email:'Email_Access_Code',title:'Send Acccess Code'})
+                        })
+                    break;
+                    case 'Reminder_1_Access_Code':
+                        var s=records[I].Data["Reminder_1_Access_Code"]
+                        if(s!='' && s!=null && s!=undefined){
+                            html="<u style='cursor:pointer'>"+s+"</u>";
+                            html+=' <i style="color:green;font-weight: 900" class="far fa-check-circle"></i>';
+                        }
+                        else {
+                            html="<u style='cursor:pointer'>Reminder 1</u>"
+                        }
+                        td.html(html);
+                            td.find('u').on('click',function(){
+                                $vm.load_module_v2('send-email','',{record:records[I],email:'Reminder_1_Access_Code',title:'Send Acccess Code Reminder 1'})
+                        })
+                    break;
+                    case 'Reminder_2_Access_Code':
+                        var s=records[I].Data["Reminder_2_Access_Code"]
+                        if(s!='' && s!=null && s!=undefined){
+                            html="<u style='cursor:pointer'>"+s+"</u>";
+                            html+=' <i style="color:green;font-weight: 900" class="far fa-check-circle"></i>';
+                        }
+                        else {
+                            html="<u style='cursor:pointer'>Reminder 2</u>"
+                        }
+                        td.html(html);
+                            td.find('u').on('click',function(){
+                                $vm.load_module_v2('send-email','',{record:records[I],email:'Reminder_2_Access_Code',title:'Send Acccess Code Reminder 2'})
+                        })
+                    break;
                 }
             }
-            //-----------------------------------------------
+            //-----------------------------------------------            
         }
     </script>
     <style>

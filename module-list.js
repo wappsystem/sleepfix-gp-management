@@ -69,11 +69,11 @@
 
         "sleepfix-study-page": {url:"$H/m/tasks/sleepfix-study-page1.html"},
         "progress-report":{url:"$H/m/tasks/progress-data.html",   Table:"sleepfix-gp-login",task_name:"Progress report"},
-        "start-date":   {url:"$H/m/tasks/start-date-form.html",   Table:"sleepfix-gp-contact", task_name:"Start Date"},
+        "start-date":   {url:"$H/m/tasks/date-start-form.html",   Table:"sleepfix-gp-contact", task_name:"Start Date"},
+        "reminder-1-date":   {url:"$H/m/tasks/date-reminder-1-form.html",   Table:"sleepfix-gp-contact", task_name:"Access Code Reminder 1 Date"},
+        "reminder-2-date":   {url:"$H/m/tasks/date-reminder-2-form.html",   Table:"sleepfix-gp-contact", task_name:"Access Code Reminder 2 Date"},
         "email-data":   {url:"$H/m/tasks/email-data.html",   Table:"sleepfix-gp-contact", form_module:"email-form",task_name:"email"},
-        "email-01":   {url:"$H/m/tasks/email-01.html"},
-        "email-r1":   {url:"$H/m/tasks/email-r1.html"},
-        "email-r2":   {url:"$H/m/tasks/email-r2.html"},
+        "send-email":   {url:"$H/m/tasks/send-email-form.html",   Table:"sleepfix-gp-contact", task_name:"send email"},
     }
     //-------------------------------------------------------------------------------------
     for(p in modules){

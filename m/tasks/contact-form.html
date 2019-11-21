@@ -127,6 +127,7 @@
                 $(window).scrollTop(0);
                 m.input.goback = 1;
                 console.log(JSON.stringify($vm.part_user))
+/*
 				var I1 = $('#F__ID input[name=sequence_no').val();
 				if (I1 == '') {
 					$vm.request({ cmd: "find", table: m.Table, sort: { I1: -1 }, skip: 0, limit: 1 }, function (res) {
@@ -148,7 +149,8 @@
                         })
                         
 					})
-				}
+                }
+                */
             }
             //--------------------------------------------------------
             $('#mobileNumber__ID').keyup(function(e){
@@ -178,7 +180,7 @@
             //-------------------------------------
 			var before_submit = m.before_submit;
 			m.before_submit = function (data, index) {
-                var I1 = $('#F__ID input[name=sequence_no').val(); if (I1 != '' && I1 != '-') index.I1 = parseInt(I1);
+                //var I1 = $('#F__ID input[name=sequence_no').val(); if (I1 != '' && I1 != '-') index.I1 = parseInt(I1);
 				return before_submit(data, index);
 			}
             //-------------------------------------
