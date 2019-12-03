@@ -112,7 +112,8 @@
 				param.push(data.sms) //5
 				param.push(url) //6
 				param.push(sms_url) //7
-				$vm.alert('Send Email Disabled Email:'+param[0]+' First Name:'+param[1]+' Access Code:'+param[3]+' Phone:'+param[4]+' SMS:'+param[5]); //send_email(param);              
+				//$vm.alert('Send Email Disabled Email:'+param[0]+' First Name:'+param[1]+' Access Code:'+param[3]+' Phone:'+param[4]+' SMS:'+param[5]); 
+				send_email(param);              
 				console.log(JSON.stringify(param))
 				$vm.refresh=1;
                 //if(m.change_status==undefined) m.change_status=0;
@@ -145,7 +146,8 @@
                 xmlHttp.send(JSON.stringify(data));
                 //------------------------------------
                 //SMS alert
-                //------------------------------------
+				//------------------------------------
+				/*
                 if(param[5]=='on'){
                     var sms_data = {
                         "emailaddress": "" + param[4].replace(/-/g,'') + "@directsms.com.au",
@@ -167,6 +169,7 @@
                     sms_xmlHttp.setRequestHeader("Content-Type", "application/json");
                     sms_xmlHttp.send(JSON.stringify(sms_data));                                        
 				}
+				*/
 			}
 			//-------------------------------------
             var get_now_date = function () {

@@ -82,6 +82,12 @@
 			})
 		}
 		if (task == "") {
+			tb = $vm.module_list['psqi-form'].Table;
+			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+				if (res.result.length == 0) task = 'psqi-form';
+			})
+		}
+		if (task == "") {
 			tb = $vm.module_list['gad-7-form'].Table;
 			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
 				if (res.result.length == 0) task = 'gad-7-form';

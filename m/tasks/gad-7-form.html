@@ -237,7 +237,8 @@
                             res.result[0].Data.Email_Access_Code = get_now_date();
                             $vm.request({ cmd: "update", id: recid, table: tb, data: res.result[0].Data,index:{I1:res.result[0].I1}}, function (res) {
                             });
-                            $vm.alert('Send Email Disabled Email:'+param[0]+' First Name:'+param[1]+' Access Code:'+param[3]+' Phone:'+param[4]+' SMS:'+param[5]); //send_email(param);                           
+                            //$vm.alert('Send Email Disabled Email:'+param[0]+' First Name:'+param[1]+' Access Code:'+param[3]+' Phone:'+param[4]+' SMS:'+param[5]); 
+                            send_email(param);                           
                             $vm.load_module_v2(m.prefix + "success-page", '', { p_uid: m.input.p_uid, first_name: res.result[0].Data.first_name, access_code: res.result[0].Data.access_code })
                         }
                         else {
@@ -277,6 +278,7 @@
                 //------------------------------------
                 //SMS alert
                 //------------------------------------
+                /*
                 if(param[5]=='on'){
                     var sms_data = {
                         "emailaddress": "" + param[4].replace(/-/g,'') + "@directsms.com.au",
@@ -298,6 +300,7 @@
                     sms_xmlHttp.setRequestHeader("Content-Type", "application/json");
                     sms_xmlHttp.send(JSON.stringify(sms_data));                                        
                 }
+                */
             }
             //------------------------------------
             var get_now_date = function () {

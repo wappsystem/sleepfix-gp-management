@@ -53,6 +53,24 @@
 				})
 			}
 			if (task == "") {
+				tb = $vm.module_list['psqi-w6-form'].Table;
+				$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+					if (res.result.length == 0) task = 'psqi-w6-form';
+				})
+			}
+			if (task == "") {
+				tb = $vm.module_list['ieuq-w6-form'].Table;
+				$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+					if (res.result.length == 0) task = 'ieuq-w6-form';
+				})
+			}
+			if (task == "") {
+				tb = $vm.module_list['taq-w6-form'].Table;
+				$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+					if (res.result.length == 0) task = 'taq-w6-form';
+				})
+			}
+			if (task == "") {
 				tb = $vm.module_list['gad-7-w6-form'].Table;
 				$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
 					if (res.result.length == 0) task = 'gad-7-w6-form';
