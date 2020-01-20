@@ -189,18 +189,18 @@
                 $vm.request({ cmd: "find", table: tb, sort: { I1: -1 }, skip: 0, limit: 1  }, function (res) {
                     if (res.result.length > 0) {
                         if (res.result[0].I1 !== undefined) max_I1 = res.result[0].I1
+                        max_I1++;
+                        var tb=$vm.module_list['access-code-data'].Table;
+                        var qry={UID:max_I1}
+                        $vm.request({ cmd: "find", table:tb, query:qry, skip: 0, limit: 1 }, function (res) {
+                            if(res.result.length>0) {
+                                AccessCode=res.result[0].Data.Access_Code;
+                                AccessCodeI1=res.result[0].UID;
+                            }
+                            else $vm.alert("We are so sorry we have run out of Access codes")
+                        })
                     }
-                    max_I1++;
-                    var tb=$vm.module_list['access-code-data'].Table;
-                    var qry={UID:max_I1}
-                    $vm.request({ cmd: "find", table:tb, query:qry, skip: 0, limit: 1 }, function (res) {
-                        if(res.result.length>0) {
-                            AccessCode=res.result[0].Data.Access_Code;
-                            AccessCodeI1=res.result[0].UID;
-                        }
-                        else $vm.alert("We are so sorry we have run out of Access codes")
-                    })
-
+                    else $vm.alert("Access problem")
                 });
                 jQuery.ajaxSetup({ async: true });
                 m.default_load();
