@@ -182,32 +182,54 @@
             var AccessCode='';
             var AccessCodeI1;
             //-------------------------------------
-            m.default_load = m.load;
-            var tb = $vm.module_list['contact-form'].Table;
-            m.load = function () {
-                jQuery.ajaxSetup({ async: false });
-                $vm.request({ cmd: "find", table: tb, sort: { I1: -1 }, skip: 0, limit: 1  }, function (res) {
-                    if (res.result.length > 0) {
-                        if (res.result[0].I1 !== undefined) max_I1 = res.result[0].I1
-                        max_I1++;
-                        var tb=$vm.module_list['access-code-data'].Table;
-                        var qry={UID:max_I1}
-                        $vm.request({ cmd: "find", table:tb, query:qry, skip: 0, limit: 1 }, function (res) {
-                            if(res.result.length>0) {
-                                AccessCode=res.result[0].Data.Access_Code;
-                                AccessCodeI1=res.result[0].UID;
-                            }
-                            else $vm.alert("We are so sorry we have run out of Access codes")
-                        })
+            //m.default_load = m.load;
+            m.load=function(){
+                //m.default_load();
+                if($vm.online_questionnaire==1 || $vm.online_questionnaire_w6==1) {
+                    $('#pdf__ID').hide();
+                    $('#participant_div__ID').hide();
+                }
+                $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name);
+                $('#page_no__ID').text($vm.module_list[$vm.vm['__ID'].name].page);
+                //console.log(JSON.stringify(m.input))
+            //--------------------------
+                if(m.input!=undefined && m.input.p_uid!=undefined){
+                    //new from child panel
+                    console.log("load")
+                    $("#F__ID input[name=Participant]").val(m.input.p_uid);
+                    $("#F__ID input[name=Participant_uid]").val(m.input.p_uid);
+                }
+                else if(m.input!=undefined && m.input.record!=undefined){
+                    //modify
+                }
+                else{
+                    //new with no parent
+                }
+                var tb=$vm.module_list['participant-data'].Table;
+                $vm.request({ cmd: "find-p1", table:tb,  query:{} }, function (res) {
+                    if(res.result.length>0) {
+                        AccessCode=res.result[0].Data.Access_Code;
+                        AccessCodeI1=res.result[0].UID;
+                        console.log(AccessCode+' - '+AccessCodeI1)
                     }
-                    else $vm.alert("Access problem")
-                });
-                jQuery.ajaxSetup({ async: true });
+                    else {$vm.alert("Problem with Access codes");console.log($vm.user_name);}
+                })
+                m.input.goback = 1;
+            }
+/*            m.default_load = m.load;
+            m.load = function () {
+                var tb=$vm.module_list['sleepfix-gp-participant'].Table;
+                $vm.request({ cmd: "find-p1", table:tb,  skip: 0, limit: 1 }, function (res) {
+                    if(res.result.length>0) {
+                        AccessCode=res.result[0].Data.Access_Code;
+                        AccessCodeI1=res.result[0].UID;
+                    }
+                    else $vm.alert("Problem with Access codes")
+                })
                 m.default_load();
                 m.input.goback = 1;
-
             }
-            //-------------------------------------
+  */          //-------------------------------------
             var before_submit = m.before_submit;
             m.before_submit = function (data, index) {
                 data.GAD = (parseInt(data.gad_1) + parseInt(data.gad_2) + parseInt(data.gad_3) + parseInt(data.gad_4) + parseInt(data.gad_5) + parseInt(data.gad_6) + parseInt(data.gad_7)).toString();
@@ -224,6 +246,7 @@
                         var param = [];
                         if(res.result[0].I1== '' || res.result[0].I1== undefined){
                             res.result[0].Data.access_code=AccessCode;
+                            res.result[0].Data.sequence_no=AccessCodeI1;
                             res.result[0].I1=AccessCodeI1;
                         }
                         param.push(res.result[0].Data.email);
