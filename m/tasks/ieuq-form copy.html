@@ -634,44 +634,32 @@
 
 <script>
     function F__ID() {
-        //-------------------------------------
-        VmInclude: __COMPONENT__/f/form.01.js
-        VmInclude: __CURRENT_PATH__/shared-form.js
-        //-------------------------------------
-        m.default_load = m.load;
-        m.load = function () {
-            m.default_load();
-            m.input.goback = 1;
-            //console.log(JSON.stringify(m.prefix))
+      //-------------------------------------
+      VmInclude: __COMPONENT__/f/form.01.js
+      VmInclude: __CURRENT_PATH__/shared-form.js
+      //-------------------------------------
+      m.default_load = m.load;
+      m.load = function () {
+        m.default_load();
+        m.input.goback = 1;
+        //console.log(JSON.stringify(m.prefix))
+      }
+      //-------------------------------------
+      var before_submit = m.before_submit;
+      m.before_submit = function (data, index) {
+        return before_submit(data, index);
+      }
+      //-------------------------------------
+      m.after_insert = function (data, res) {
+        if ($vm.oq == 'bl') {
+          console.log('A')
+          $vm.load_module_v2(m.prefix + 'after-screening', '', { p_uid: m.input.p_uid });
         }
-        //-------------------------------------
-        var before_submit = m.before_submit;
-        m.before_submit = function (data, index) {
-            return before_submit(data, index);
+        else {
+          console.log('B')
+          $vm.load_module_v2(m.prefix + 'w6-quesstionnaire', '', { p_uid: m.input.p_uid });
         }
-        //-------------------------------------
-        m.after_insert = function (data, res) {
-            var q_url = "";
-            qry = { I2: m.input.p_uid };
-            var tb = $vm.module_list['contact-form'].Table;
-            jQuery.ajaxSetup({ async: false });
-            $vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
-                if (res.result.length != 0) {
-                    var recid = res.result[0]._id;
-                    if ($vm.oq == 'bl') {
-                        $vm.load_module_v2(m.prefix + 'after-screening', '', {p_uid:m.input.p_uid});
-                    }
-                    else {
-                        res.result[0].Data.Q="2"
-                        $vm.request({ cmd: "update", id: recid, table: tb, data: res.result[0].Data}, function (res) {
-                        });
-                        $vm.load_module_v2(m.prefix + "thank-you-page", '', { p_uid: m.input.p_uid })
-                    }
-                }
-                else $vm.alert("Sorry, something went wrong!")
-            })
-            jQuery.ajaxSetup({ async: true });
-        }
+      }
     }    
   </script>
     <style>

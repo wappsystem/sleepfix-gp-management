@@ -35,15 +35,15 @@
 				})
 			}
 			if (task == "") {
-				tb = $vm.module_list['ess-w6-form'].Table;
+				tb = $vm.module_list['sds-w6-form'].Table;
 				$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
-					if (res.result.length == 0) task = 'ess-w6-form';
+					if (res.result.length == 0) task = 'sds-w6-form';
 				})
 			}
 			if (task == "") {
-				tb = $vm.module_list['ffs-w6-form'].Table;
+				tb = $vm.module_list['gad-7-w6-form'].Table;
 				$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
-					if (res.result.length == 0) task = 'ffs-w6-form';
+					if (res.result.length == 0) task = 'gad-7-w6-form';
 				})
 			}
 			if (task == "") {
@@ -53,27 +53,33 @@
 				})
 			}
 			if (task == "") {
+				tb = $vm.module_list['ffs-w6-form'].Table;
+				$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+					if (res.result.length == 0) task = 'ffs-w6-form';
+				})
+			}
+			if (task == "") {
+				tb = $vm.module_list['ess-w6-form'].Table;
+				$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+					if (res.result.length == 0) task = 'ess-w6-form';
+				})
+			}
+/*			if (task == "") {
 				tb = $vm.module_list['psqi-w6-form'].Table;
 				$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
 					if (res.result.length == 0) task = 'psqi-w6-form';
 				})
 			}
-			if (task == "") {
-				tb = $vm.module_list['ieuq-w6-form'].Table;
-				$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
-					if (res.result.length == 0) task = 'ieuq-w6-form';
-				})
-			}
-			if (task == "") {
+*/			if (task == "") {
 				tb = $vm.module_list['taq-w6-form'].Table;
 				$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
 					if (res.result.length == 0) task = 'taq-w6-form';
 				})
 			}
 			if (task == "") {
-				tb = $vm.module_list['gad-7-w6-form'].Table;
+				tb = $vm.module_list['ieuq-w6-form'].Table;
 				$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
-					if (res.result.length == 0) task = 'gad-7-w6-form';
+					if (res.result.length == 0) task = 'ieuq-w6-form';
 				})
 			}
 			jQuery.ajaxSetup({ async: true });

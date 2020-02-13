@@ -64,15 +64,15 @@
 			})
 		}
 		if (task == "") {
-			tb = $vm.module_list['ess-form'].Table;
+			tb = $vm.module_list['sds-form'].Table;
 			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
-				if (res.result.length == 0) task = 'ess-form';
+				if (res.result.length == 0) task = 'sds-form';
 			})
 		}
 		if (task == "") {
-			tb = $vm.module_list['ffs-form'].Table;
+			tb = $vm.module_list['gad-7-form'].Table;
 			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
-				if (res.result.length == 0) task = 'ffs-form';
+				if (res.result.length == 0) task = 'gad-7-form';
 			})
 		}
 		if (task == "") {
@@ -81,16 +81,22 @@
 				if (res.result.length == 0) task = 'phq-9-form';
 			})
 		}
-		if (task == "") {
+/*		if (task == "") {
 			tb = $vm.module_list['psqi-form'].Table;
 			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
 				if (res.result.length == 0) task = 'psqi-form';
 			})
 		}
-		if (task == "") {
-			tb = $vm.module_list['gad-7-form'].Table;
+*/		if (task == "") {
+			tb = $vm.module_list['ffs-form'].Table;
 			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
-				if (res.result.length == 0) task = 'gad-7-form';
+				if (res.result.length == 0) task = 'ffs-form';
+			})
+		}
+		if (task == "") {
+			tb = $vm.module_list['ess-form'].Table;
+			$vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+				if (res.result.length == 0) task = 'ess-form';
 			})
 		}
 		jQuery.ajaxSetup({ async: true });

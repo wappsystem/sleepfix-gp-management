@@ -178,7 +178,58 @@
             VmInclude: __COMPONENT__/f/form.01.js
             VmInclude: __CURRENT_PATH__/shared-form.js
             //-------------------------------------
+            var max_I1 = 0;
+            var AccessCode='';
+            var AccessCodeI1;
             //-------------------------------------
+            //m.default_load = m.load;
+            m.load=function(){
+                //m.default_load();
+                if($vm.online_questionnaire==1 || $vm.online_questionnaire_w6==1) {
+                    $('#pdf__ID').hide();
+                    $('#participant_div__ID').hide();
+                }
+                $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name);
+                $('#page_no__ID').text($vm.module_list[$vm.vm['__ID'].name].page);
+                //console.log(JSON.stringify(m.input))
+            //--------------------------
+                if(m.input!=undefined && m.input.p_uid!=undefined){
+                    //new from child panel
+                    console.log("load")
+                    $("#F__ID input[name=Participant]").val(m.input.p_uid);
+                    $("#F__ID input[name=Participant_uid]").val(m.input.p_uid);
+                }
+                else if(m.input!=undefined && m.input.record!=undefined){
+                    //modify
+                }
+                else{
+                    //new with no parent
+                }
+                var tb=$vm.module_list['participant-data'].Table;
+                $vm.request({ cmd: "find-p1", table:tb,  query:{} }, function (res) {
+                    if(res.result.length>0) {
+                        AccessCode=res.result[0].Data.Access_Code;
+                        AccessCodeI1=res.result[0].UID;
+                        console.log(AccessCode+' - '+AccessCodeI1)
+                    }
+                    else {$vm.alert("Problem with Access codes");console.log($vm.user_name);}
+                })
+                m.input.goback = 1;
+            }
+/*            m.default_load = m.load;
+            m.load = function () {
+                var tb=$vm.module_list['sleepfix-gp-participant'].Table;
+                $vm.request({ cmd: "find-p1", table:tb,  skip: 0, limit: 1 }, function (res) {
+                    if(res.result.length>0) {
+                        AccessCode=res.result[0].Data.Access_Code;
+                        AccessCodeI1=res.result[0].UID;
+                    }
+                    else $vm.alert("Problem with Access codes")
+                })
+                m.default_load();
+                m.input.goback = 1;
+            }
+  */          //-------------------------------------
             var before_submit = m.before_submit;
             m.before_submit = function (data, index) {
                 data.GAD = (parseInt(data.gad_1) + parseInt(data.gad_2) + parseInt(data.gad_3) + parseInt(data.gad_4) + parseInt(data.gad_5) + parseInt(data.gad_6) + parseInt(data.gad_7)).toString();
@@ -186,15 +237,109 @@
             }
             //-------------------------------------
             m.after_insert = function (data, res) {
-                if($vm.oq=='bl'){
-                    console.log('A')
-                    $vm.load_module_v2(m.prefix + 'after-screening', '', {p_uid:m.input.p_uid});
+                var q_url = "";
+                qry = { I2: m.input.p_uid };
+                var tb = $vm.module_list['contact-form'].Table;
+                jQuery.ajaxSetup({ async: false });
+                $vm.request({ cmd: "find-s", table: tb, query: qry, options: {} }, function (res) {
+                    if (res.result.length != 0) {
+                        var param = [];
+                        if(res.result[0].I1== '' || res.result[0].I1== undefined){
+                            res.result[0].Data.access_code=AccessCode;
+                            res.result[0].Data.sequence_no=AccessCodeI1;
+                            res.result[0].I1=AccessCodeI1;
+                        }
+                        param.push(res.result[0].Data.email);
+                        param.push(res.result[0].Data.first_name);
+                        param.push(q_url);
+                        param.push(res.result[0].Data.access_code);
+                        param.push(res.result[0].Data.phone)
+                        param.push(res.result[0].Data.sms)
+                        var recid = res.result[0]._id;
+                        if ($vm.oq == 'bl') {
+                            res.result[0].Data.Email_Access_Code = get_now_date();
+                            $vm.request({ cmd: "update", id: recid, table: tb, data: res.result[0].Data,index:{I1:res.result[0].I1}}, function (res) {
+                            });
+                            //$vm.alert('Send Email Disabled Email:'+param[0]+' First Name:'+param[1]+' Access Code:'+param[3]+' Phone:'+param[4]+' SMS:'+param[5]); 
+                            send_email(param);                           
+                            $vm.load_module_v2(m.prefix + "success-page", '', { p_uid: m.input.p_uid, first_name: res.result[0].Data.first_name, access_code: res.result[0].Data.access_code })
+                        }
+                        else {
+                            res.result[0].Data.Q="2"
+                            $vm.request({ cmd: "update", id: recid, table: tb, data: res.result[0].Data}, function (res) {
+                            });
+                            $vm.load_module_v2(m.prefix + "thank-you-page", '', { p_uid: m.input.p_uid })
+                        }
+                    }
+                    else $vm.alert("Sorry, something went wrong!")
+                })
+                jQuery.ajaxSetup({ async: true });
+            }
+            //-------------------------------------
+            var send_email = function (param) {
+                var url = "https://prod-31.australiasoutheast.logic.azure.com:443/workflows/eed1e940d1e84fc6a0c85b23aeeba2b1/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=5qT-10hModS8fCHpn3k1iZ-ojRi75rI1xI1fj7i0TpQ";
+                var sms_url = "https://prod-14.australiasoutheast.logic.azure.com:443/workflows/d97fd9ca20144b8d8a8faee0ca2d1693/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=_WljPgPFdsbYx1nr3SM9ifRcKZ0VHleW-b-Gj-EI-dA";
+                var data = {
+                    "emailaddress": "" + param[0] + "",
+                    "first_name": "" + param[1] + "",
+                    "link": "" + param[2] + "",
+                    "code": "" + param[3] + ""
                 }
-                else{
-                    console.log('B')
-                    $vm.load_module_v2(m.prefix + 'w6-quesstionnaire', '', {p_uid:m.input.p_uid});
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                    }
+                    else if (this.readyState == 4 && this.status == 403) {
+                    }
+                    if (this.status == 404) {
+                        $vm.alert(url + ", 404 (Not found)");
+                    }
+                }
+                xmlHttp.open("POST", url, true); // true for asynchronous
+                xmlHttp.setRequestHeader("Content-Type", "application/json");
+                xmlHttp.send(JSON.stringify(data));
+                //------------------------------------
+                //SMS alert
+                //------------------------------------
+                if(param[5]=='on'){
+                    var sms_data = {
+                        "emailaddress": "" + param[4].replace(/-/g,'') + "@e2s.directsms.com.au",
+                        "first_name": "" + param[1] + "",
+                        "link": "" + param[2] + "",
+                        "code": "" + param[3] + ""
+                    }
+                    var sms_xmlHttp = new XMLHttpRequest();
+                    sms_xmlHttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                        }
+                        else if (this.readyState == 4 && this.status == 403) {
+                        }
+                        if (this.status == 404) {
+                            $vm.alert(url + ", 404 (Not found)");
+                        }
+                    }
+                    sms_xmlHttp.open("POST", sms_url, true); // true for asynchronous
+                    sms_xmlHttp.setRequestHeader("Content-Type", "application/json");
+                    sms_xmlHttp.send(JSON.stringify(sms_data));                                        
                 }
             }
+            //------------------------------------
+            var get_now_date = function () {
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1; //January is 0!
+                var yyyy = today.getFullYear();
+                var hh = today.getHours()
+                var mn = today.getMinutes()
+                var ss = today.getSeconds()
+                if (dd < 10) { dd = '0' + dd; }
+                if (mm < 10) { mm = '0' + mm; }
+                if (mn < 10) { mn = '0' + mn; }
+                if (hh < 10) { hh = '0' + hh; }
+                if (ss < 10) { ss = '0' + ss; }
+                return dd + '/' + mm + '/' + yyyy;
+            }
+            //-------------------------------------
         }
     </script>
     <style>
