@@ -19,18 +19,18 @@
         <!----------------------------------------------->
         <script>
             //------------------------------------
-            $vm={};$vm.ver=[0.26,0.26];
+            $vm={};$vm.ver=[0.27,0.27];
             $vm.hosting_path=window.location.href.substring(0, window.location.href.split('?')[0].lastIndexOf('/'));
             if(window.location.hostname=='127.0.0.1' || window.location.hostname=='localhost') $vm.localhost=true;
             //------------------------------------
             //modules used immediately
             $vm.module_list={
                 //you can add modules here directly
-                "home":	        {url:"$H/0-management/home.html",router:1},
-                "frame":	    {url:"$H/0-management/frame.html"},
-                "app":	        {url:"$H/0-management/app.html"},
-                "header":	    {url:"$H/0-management/header.html"},
-                "footer":	    {url:"$H/0-management/footer.html"},
+                "home":	        {url:"$H/0-online-questionnare/home.html",Table:"sleepfix-gp-participant",questionnaire_panel:"oq-panel"},
+                "frame":	    {url:"$H/0-online-questionnare/frame.html"},
+                "app":	        {url:"$H/0-online-questionnare/app.html"},
+                "header":	    {url:"$H/0-online-questionnare/header.html"},
+                "footer":	    {url:"$H/0-online-questionnare/footer.html"},
             };
             for(p in $vm.module_list) $vm.module_list[p].url=$vm.module_list[p].url.replace('$H',$vm.hosting_path);
             //------------------------------------
