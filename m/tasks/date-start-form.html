@@ -41,6 +41,13 @@
 			VmInclude: __COMPONENT__/f/form.01.js
 			VmInclude: __CURRENT_PATH__/shared-form.js
 			//-------------------------------------
+			m.default_load = m.load;
+			m.load = function () {
+                m.default_load();
+				//console.log(m.input.record.I2)
+				m.input.p_uid=m.input.record.I2;
+			}
+			//-------------------------------------
 			var before_submit = m.before_submit;
 			m.before_submit = function (data, index) {
 				return before_submit(data, index);
