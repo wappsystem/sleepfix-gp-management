@@ -146,7 +146,52 @@
                     break;
                 }
             }
-            //-----------------------------------------------            
+            //-----------------------------------------------
+            m.export_records=function(){
+                var req={cmd:"export",table:m.Table,I1:m.I1,search:$('#keyword__ID').val()}
+                open_model__ID();
+                $vm.request(req,function(N,i,txt){
+                    console.log(i+"/"+N);
+                    $('#msg__ID').text((100*i/N).toFixed(0)+"%");
+                    if(i==-1){
+                        var len=txt.length;
+                        var data_rec="["+txt.substring(5,len-9)+"]";
+                        var o=JSON.parse(data_rec);
+                        var fields_ex=m.fields.replace("I2","Participant");
+                        var export_fields=fields_ex.split(',');
+                        for (var j=0;j<export_fields.length;j++){
+                            var tmp=export_fields[j].split('|')
+                            if (tmp.length>1) export_fields[j]=tmp[1];
+                        }
+                        //Add undefined values to first record (lowest Participant_uid) to get complete records for all entries. 
+                        o.sort(function(a, b) {
+                            return parseFloat(a.Participant) - parseFloat(b.Participant);
+                        });
+                       //Order by m.fields
+                        export_fields=export_fields.slice(0,export_fields.length-1);
+                        //console.log(JSON.stringify(export_fields))
+                        var output_data=[];
+                        for (var k=0;k<o.length;k++){
+                            var empty_item2={};
+                            for( var l=0;l<export_fields.length;l++){
+                                if(o[k].hasOwnProperty(export_fields[l])){
+                                    empty_item2[export_fields[l]]=o[k][export_fields[l]];
+                                }
+                                else {
+                                    empty_item2[export_fields[l]]="";  
+                                }
+                            }
+                            output_data.push(empty_item2);
+                        }
+
+                        var oo=JSON.parse(JSON.stringify(output_data,export_fields));
+                        //console.log(JSON.stringify(oo))
+                        $vm.download_csv(m.Table+".csv",oo);
+                        close_model__ID();
+                    }
+                });
+            }
+            //-----------------------------------------------
         }
     </script>
     <style>
