@@ -6,8 +6,8 @@
         //-------------------------------------
         VmInclude:__COMPONENT__/g/grid.01.js
         //-------------------------------------
-        var fields="Gender,Age,Postcode,Profession,Profession_GP,Profession_Nurse,Profession_Nurse_other,Profession_Pharmacist,Years_Worked,Sites,Site_number,Employment_status,Employment_status_other,Number_Patients,Sleep_Problems,dhi_familiarity,dhi_interventions,dhi_interventions_state,dhi_sp_familiarity,dhi_sp_interventions,dhi_sp_interventions_state,dhi_usage_diagnostic,dhi_usage_tracking,dhi_usage_educational,dhi_usage_behavioural,dhi_usage_none,dhi_usage_other,dhi_usage_other_state,data_security,privacy_policy,legal_compliance,trustworthy_repository,endorsement,health_professionals,demonstrate_efficacy,training,financial_incentives,cost,gift_card,interview,mobile_number,email";
-        m.fields="_Form,"+fields+",Submit_date,Submitted_by,_Delete";
+        var fields="pis,Coordinator,Consent,Gender,Age,Postcode,Profession,Profession_GP,Profession_Nurse,Profession_Nurse_other,Profession_Pharmacist,Years_Worked,Sites,Site_number,Employment_status,Employment_status_other,Number_Patients,Sleep_Problems,dhi_familiarity,dhi_interventions,dhi_interventions_state,dhi_sp_familiarity,dhi_sp_interventions,dhi_sp_interventions_state,dhi_usage_diagnostic,dhi_usage_tracking,dhi_usage_educational,dhi_usage_behavioural,dhi_usage_none,dhi_usage_other,dhi_usage_other_state,data_security,privacy_policy,legal_compliance,trustworthy_repository,endorsement,health_professionals,demonstrate_efficacy,training,financial_incentives,cost,gift_card,interview,mobile_number,email";
+        m.fields=""+fields+",Submit_date,Submitted_by,_Delete";
         //-------------------------------------
        m.cell_render=function(records,I,field,td){
                 switch(field){
