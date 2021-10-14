@@ -14,7 +14,7 @@
                                 participant_id:{field1:""}
                             },
         "oq-setup":         {url:"$H/m/oq-setup.html",Table:"sleepfix-gp-participant"},
-        "oq":               {url:"$H/online-questionnaire.html"},
+        "oq":               {url:"$H/index.html"},
         "oq-w6":            {url:"$H/online-questionnaire-w6.html"},
         "oq-panel":         {url:"$H/m/oq-panel.html"},
         "participant-form": {url:"$H/m/participant-form.html", Table:"sleepfix-gp-participant"},
