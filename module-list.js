@@ -6,18 +6,18 @@
         "notes-data":  	    {url:"$H/m/notes-data.html",Table:"sleepfix-gp-notes",form_module:"notes-form"},
         "notes-form":  	    {url:"$H/m/notes-form.html",Table:"sleepfix-gp-notes"},
         
-        "participant-data": {url:"$H/m/participant-data.html", Table:"sleepfix-gp-participant", form_module:"participant-form",router:1,
+        "participant-data": {url:"$H/m/participant-data.html", Table:"sleepfix-gp-participants", form_module:"participant-form",router:1,
                                 panel_child:"panel-child",
                                 online_questionnaire_setup:"oq-setup",
                                 online_questionnaire:"oq",
                                 online_questionnaire_w6:"oq-w6",
                                 participant_id:{field1:""}
                             },
-        "oq-setup":         {url:"$H/m/oq-setup.html",Table:"sleepfix-gp-participant"},
+        "oq-setup":         {url:"$H/m/oq-setup.html",Table:"sleepfix-gp-participants"},
         "oq":               {url:"$H/index.html"},
         "oq-w6":            {url:"$H/online-questionnaire-w6.html"},
         "oq-panel":         {url:"$H/m/oq-panel.html"},
-        "participant-form": {url:"$H/m/participant-form.html", Table:"sleepfix-gp-participant"},
+        "participant-form": {url:"$H/m/participant-form.html", Table:"sleepfix-gp-participants"},
         
         "after-screening" :  {url:"$H/m/oq-panel.html"},
         "w6-quesstionnaire" :  {url:"$H/m/oq-w6-panel.html"},

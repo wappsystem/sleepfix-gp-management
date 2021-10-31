@@ -289,6 +289,7 @@ m.handleFileSelect=function(evt){
                                         //if(field_id=='Submit_date' && j==1) rd['Submit_date']=items[1];
                                         //if(field_id=='Submitted_by' && j==2) rd['Submitted_by']=items[2];
                                         //if(field_id=='I1' && j==3) dbv['I1']=items[3];
+                                        //console.log(field_id+" - "+j)
                                     }
                                     if( jQuery.isEmptyObject(rd)===false){
                                         if(typeof(before_submit)!='undefined'){

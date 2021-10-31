@@ -13,8 +13,8 @@
 				</div>
 				<div class='row row__ID'>
 					<div class="col">
-						<span>GP</span>
-						<input type=text class=form-control name=GP_name>
+						<span>Name</span>
+						<input type=text class=form-control name=Name>
 					</div>
 				</div>
 				<div class='row row__ID'>
@@ -62,7 +62,9 @@
 				else{
 					$('#row_participant__ID').show()
 					$('#record__ID').val(m.input.record.UID)
-					$('#F__ID input[name=Signed_in_name]').val(",sleepfix-gp-participant-"+m.input.record.UID+",");
+                    console.log("AAAA"+JSON.stringify(m.input))
+                    var pt=m.input.record.Table;
+					$('#F__ID input[name=Signed_in_name]').val(","+pt+"-"+m.input.record.UID+",");
 				}
 			}
             //-------------------------------------
