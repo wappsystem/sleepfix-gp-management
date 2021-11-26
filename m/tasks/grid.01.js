@@ -285,7 +285,7 @@ m.handleFileSelect=function(evt){
                                         var index=flds.indexOf(field_id);
                                         var index2=form_fields.indexOf(field_id);
                                         if(index!=-1 && index2!=-1)  rd[field_id]=items[index];
-                                        if(field_id=='P1' && j==0) dbv['P1']=items[0];
+                                        if(field_id=='P1' && j==1) dbv['P1']=items[1];
                                         //if(field_id=='Submit_date' && j==1) rd['Submit_date']=items[1];
                                         //if(field_id=='Submitted_by' && j==2) rd['Submitted_by']=items[2];
                                         //if(field_id=='I1' && j==3) dbv['I1']=items[3];
