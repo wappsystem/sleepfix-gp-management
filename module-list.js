@@ -86,6 +86,7 @@
         "reminder-2-date":   {url:"$H/m/tasks/date-reminder-2-form.html",   Table:"sleepfix-gp-contact", task_name:"Access Code Reminder 2 Date"},
         "email-data":   {url:"$H/m/tasks/email-data.html",   Table:"sleepfix-gp-contact", form_module:"email-form",task_name:"email"},
         "send-email":   {url:"$H/m/tasks/send-email-form.html",   Table:"sleepfix-gp-contact", task_name:"send email"},
+        "fitbit-sent-date":   {url:"$H/m/tasks/fitbit-sent-form.html",   Table:"sleepfix-gp-contact", task_name:"Fitbit Sent"},
 
         "survey-data":  	    {url:"$H/m/tasks/survey-data.html",Table:"sleepfix-gp-survey",form_module:"survey-form"},
         "survey-form":  	    {url:"$H/m/tasks/survey-form.html",Table:"sleepfix-gp-survey"},
