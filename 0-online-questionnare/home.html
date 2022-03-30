@@ -73,8 +73,9 @@
                 $('#password__ID').val(password);
             }
             $('#i_agree__ID').on('click', function () {
-                if ($('#i_agree__ID:checked').val() == 'on') $('#login__ID').show();
-                else $('#login__ID').hide();
+                $vm.alert("The study is now closed. We thank you for your interest. If you have any questions, please email Woolcock.Sleepfix@sydney.edu.au.")
+                //if ($('#i_agree__ID:checked').val() == 'on') $('#login__ID').show();
+                //else $('#login__ID').hide();
 
             });
             $('#D__ID').on('load', function () {
